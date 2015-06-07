@@ -3,10 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPackage", "DataPackage\DataPackage.csproj", "{4F2F436D-81CE-4F74-B541-97D15313571B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "License", "License\License.csproj", "{2E55C97E-FA92-4076-BB12-FC66947EE0B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabularDataPackage", "TabularDataPackage\TabularDataPackage.csproj", "{244D64ED-C1F0-4C1C-B745-DD3CE8479467}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F2F436D-81CE-4F74-B541-97D15313571B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F2F436D-81CE-4F74-B541-97D15313571B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F2F436D-81CE-4F74-B541-97D15313571B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F2F436D-81CE-4F74-B541-97D15313571B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E55C97E-FA92-4076-BB12-FC66947EE0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E55C97E-FA92-4076-BB12-FC66947EE0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E55C97E-FA92-4076-BB12-FC66947EE0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E55C97E-FA92-4076-BB12-FC66947EE0B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{244D64ED-C1F0-4C1C-B745-DD3CE8479467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244D64ED-C1F0-4C1C-B745-DD3CE8479467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244D64ED-C1F0-4C1C-B745-DD3CE8479467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244D64ED-C1F0-4C1C-B745-DD3CE8479467}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
