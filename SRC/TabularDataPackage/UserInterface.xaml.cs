@@ -17,12 +17,13 @@ namespace TabularDataPackage
         {
             InitializeComponent();
             openFileDialog = new FolderBrowserDialog();
+            Licenses licenses = new Licenses();
         }
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new FolderBrowserDialog();
-            string defaultDir = GetGitHubDirectory;
+            string defaultDir = GetDefaultDirectory;
             if (string.IsNullOrEmpty(defaultDir))
                 dialog.RootFolder = Environment.SpecialFolder.MyDocuments;
             else
@@ -31,24 +32,17 @@ namespace TabularDataPackage
             pathBox.Text = dialog.SelectedPath;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Directory.Exists(pathBox.Text))
             {
-                button.IsEnabled = true;
-            }
-            else
-            {
-                button.IsEnabled = false;
+                IsGitEnabled.IsChecked = IsGitDirectory;
+                dpStatus.Text = GetDataPackageJsonStatus;
+
             }
         }
 
-        public string GetGitHubDirectory
+        public string GetDefaultDirectory
         {
             get
             {
@@ -57,6 +51,33 @@ namespace TabularDataPackage
                     return githubDir;
                 else
                     return null;
+            }
+        }
+
+        public bool IsGitDirectory
+        {
+            get
+            {
+                return Directory.Exists(Path.Combine(pathBox.Text, ".git"));
+            }
+        }
+
+        public string GetDataPackageJsonStatus
+        {
+            get
+            {
+                if (IsExistDataPackageJson)
+                    return "Exists";
+                else
+                    return "Create";
+            }
+        }
+
+        public bool IsExistDataPackageJson
+        {
+            get
+            {
+                return File.Exists(Path.Combine(pathBox.Text, "DataPackage.json"));
             }
         }
     }
