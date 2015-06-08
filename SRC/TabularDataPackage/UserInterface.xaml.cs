@@ -55,6 +55,11 @@ namespace TabularDataPackage
             pathBox.Text = dialog.SelectedPath;
         }
 
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Directory.Exists(pathBox.Text))
@@ -124,7 +129,7 @@ namespace TabularDataPackage
         {
             get
             {
-                return Directory.GetFiles(pathBox.Text, "*.csv");
+                return Directory.GetFiles(pathBox.Text, "*.csv", SearchOption.TopDirectoryOnly);
             }
         }
     }
