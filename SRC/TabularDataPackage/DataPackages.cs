@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using NLog;
 
 namespace TabularDataPackage
 {
     public class DataPackages
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private string _ProjectDirectory;
 
         public string ProjectDirectory

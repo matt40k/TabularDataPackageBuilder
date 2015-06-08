@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using NLog;
 
 namespace TabularDataPackage
 {
     public class Licenses
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private License _licenses;
 
         public Licenses()

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Forms;
+using NLog;
 
 namespace TabularDataPackage
 {
@@ -12,6 +13,8 @@ namespace TabularDataPackage
     /// </summary>
     public partial class UserInterface : Window
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private readonly FolderBrowserDialog openFileDialog;
         private DataPackages _dataPackages;
         private DataPackage _dataPackage;
