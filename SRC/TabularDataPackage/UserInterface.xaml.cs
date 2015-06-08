@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Forms;
 
 namespace TabularDataPackage
@@ -12,12 +13,34 @@ namespace TabularDataPackage
     public partial class UserInterface : Window
     {
         private readonly FolderBrowserDialog openFileDialog;
+        private DataPackages _dataPackages;
+        private DataPackage _dataPackage;
 
         public UserInterface()
         {
             InitializeComponent();
             openFileDialog = new FolderBrowserDialog();
             Licenses licenses = new Licenses();
+            _dataPackages = new DataPackages();
+        }
+
+        private void generate()
+        {
+            DataGridCheckBoxColumn c1 = new DataGridCheckBoxColumn();
+            c1.Header = "";
+            c1.Binding = new System.Windows.Data.Binding("Selected");
+            c1.Width = 30;
+            csvList.Columns.Add(c1);
+            DataGridTextColumn c2 = new DataGridTextColumn();
+            c2.Header = "Filename";
+            c2.Width = 110;
+            c2.Binding = new System.Windows.Data.Binding("Filename");
+            csvList.Columns.Add(c2);
+
+            foreach (string csvFile in CsvFiles)
+            {
+                csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile) });
+            }
         }
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
@@ -38,7 +61,23 @@ namespace TabularDataPackage
             {
                 IsGitEnabled.IsChecked = IsGitDirectory;
                 dpStatus.Text = GetDataPackageJsonStatus;
+                _dataPackages.ProjectDirectory = pathBox.Text;
+                LoadPropertiesFromPackage();
+                generate();
+            }
+        }
 
+        private void LoadPropertiesFromPackage()
+        {
+            if (IsExistDataPackageJson)
+            {
+                _dataPackage = _dataPackages.Load;
+                this.nameBox.Text = _dataPackage.Name;
+                this.titleBox.Text = _dataPackage.Title;
+                this.descriptionBox.Text = _dataPackage.Description;
+                this.licenseBox.Text = _dataPackage.License;
+                this.versionBox.Text = _dataPackage.Version;
+                this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
             }
         }
 
@@ -78,6 +117,14 @@ namespace TabularDataPackage
             get
             {
                 return File.Exists(Path.Combine(pathBox.Text, "DataPackage.json"));
+            }
+        }
+
+        public string[] CsvFiles
+        {
+            get
+            {
+                return Directory.GetFiles(pathBox.Text, "*.csv");
             }
         }
     }

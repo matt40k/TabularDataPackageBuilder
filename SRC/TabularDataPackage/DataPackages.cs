@@ -8,7 +8,7 @@ namespace TabularDataPackage
     {
         private string _ProjectDirectory;
 
-        private string ProjectDirectory
+        public string ProjectDirectory
         {
             get
             {
@@ -17,7 +17,9 @@ namespace TabularDataPackage
             set
             {
                 if (Directory.Exists(value))
+                {
                     _ProjectDirectory = value;
+                }
             }
         }
 
