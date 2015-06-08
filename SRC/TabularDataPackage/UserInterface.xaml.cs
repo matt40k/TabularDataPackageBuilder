@@ -36,7 +36,7 @@ namespace TabularDataPackage
             csvList.Columns.Add(c1);
             DataGridTextColumn c2 = new DataGridTextColumn();
             c2.Header = "Filename";
-            c2.Width = 110;
+            c2.Width = 200;
             c2.Binding = new System.Windows.Data.Binding("Filename");
             csvList.Columns.Add(c2);
 
@@ -72,6 +72,7 @@ namespace TabularDataPackage
                 _dataPackages.ProjectDirectory = pathBox.Text;
                 LoadPropertiesFromPackage();
                 generate();
+                this.buttonSave.IsEnabled = true;
             }
         }
 
