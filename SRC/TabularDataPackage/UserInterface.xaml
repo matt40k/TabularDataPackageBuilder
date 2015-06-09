@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        MaxHeight="600" MaxWidth="700" MinHeight="600" MinWidth="700" Icon="data-wrench.ico">
+        MaxHeight="600" MaxWidth="700" MinHeight="600" MinWidth="700" Icon="data-wrench.ico"
+        Title="Tabular Data Package Builder">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="500" Width="650">
             <Grid.ColumnDefinitions>
@@ -39,25 +40,25 @@
             <TextBox Name="dpStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Height="19" Width="50" Grid.Column="0" Grid.Row="2" TextAlignment="Center" />
 
             <Label Content="Name" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="nameBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" />
+            <TextBox Name="nameBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False"/>
 
             <Label Content="Title" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="titleBox" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" />
+            <TextBox Name="titleBox" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" IsEnabled="False"/>
             
             <Label Content="Description" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" />
             <TextBox Name="descriptionBox" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="75" Width="275"
-                     TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+                     TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsEnabled="False" />
             
             <Label Content="License" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <ComboBox Name="licenseBox" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" />
+            <ComboBox Name="licenseBox" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" IsEnabled="False"/>
             
             <Label Content="Version" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="versionBox" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" />
+            <TextBox Name="versionBox" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False"/>
             
             <Label Content="Last Updated" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="lastUpdatedBox" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" />
+            <TextBox Name="lastUpdatedBox" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False" />
             <DataGrid Name="csvList" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="6" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      MinHeight="200" MinWidth="225" ItemsSource="{Binding Path=.}"/>
+                      MinHeight="200" MinWidth="225" ItemsSource="{Binding Path=.}" IsEnabled="False"/>
 
             <Button Name="buttonSave" Content="Save" IsEnabled="False" Click="buttonSave_Click" Grid.Column="3" Grid.Row="8" 
                     Height="30" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>

@@ -49,7 +49,7 @@ namespace TabularDataPackage
 
             foreach (string csvFile in CsvFiles)
             {
-                csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile) });
+                this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile) });
             }
         }
 
@@ -70,10 +70,22 @@ namespace TabularDataPackage
 
         }
 
+        private void enableDisable(bool status)
+        {
+            nameBox.IsEnabled = status;
+            titleBox.IsEnabled = status;
+            descriptionBox.IsEnabled = status;
+            licenseBox.IsEnabled = status;
+            versionBox.IsEnabled = status;
+            lastUpdatedBox.IsEnabled = status;
+            csvList.IsEnabled = status;
+        }
+
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Directory.Exists(pathBox.Text))
             {
+                enableDisable(true);
                 IsGitEnabled.IsChecked = IsGitDirectory;
                 dpStatus.Text = GetDataPackageJsonStatus;
                 _dataPackages.ProjectDirectory = pathBox.Text;
@@ -81,6 +93,22 @@ namespace TabularDataPackage
                 generate();
                 this.buttonSave.IsEnabled = true;
             }
+            else
+            {
+                enableDisable(false);
+                clearSettings();
+            }
+        }
+
+        private void clearSettings()
+        {
+            this.nameBox.Text = "";
+            this.titleBox.Text = "";
+            this.descriptionBox.Text = "";
+            this.licenseBox.Text = "";
+            this.versionBox.Text = "";
+            this.lastUpdatedBox.Text = "";
+            this.csvList.Items.Clear();
         }
 
         private void LoadPropertiesFromPackage()
@@ -95,6 +123,8 @@ namespace TabularDataPackage
                 this.versionBox.Text = _dataPackage.Version;
                 this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
             }
+            else
+                clearSettings();
         }
 
         public string GetDefaultDirectory
