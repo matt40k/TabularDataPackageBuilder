@@ -2,6 +2,13 @@
 using System.Runtime.Serialization;
 
 [Serializable]
+public class Licenses
+{
+    [DataMember]
+    public License License { get; set; }
+}
+
+[Serializable]
 public class License
 {
 	[DataMember]

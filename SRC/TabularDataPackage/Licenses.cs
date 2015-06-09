@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using NLog;
 
 namespace TabularDataPackage
 {
-    public class Licenses
+    public class LicenseJson
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private List<Licenses> _licenses;
 
-        private License _licenses;
-
-        public Licenses()
+        public LicenseJson()
         {
             _licenses = Deserial(ReadLicenseFile);
         }
@@ -28,14 +28,24 @@ namespace TabularDataPackage
         {
             get
             {
-                return File.ReadAllText(LicenseListFileName);
+                if (File.Exists(LicenseListFileName))
+                    return File.ReadAllText(LicenseListFileName);
+                else
+                    throw new Exception("License.json doesn't exist");
             }
         }
 
-        public static License Deserial(string json)
+        public static List<Licenses> Deserial(string json)
         {
-            var license = JsonConvert.DeserializeObject<License>(json);
-            return license;
+            return JsonConvert.DeserializeObject<List<Licenses>>(json); ;
+        }
+
+        public List<Licenses> GetLicenses
+        {
+            get
+            {
+                return _licenses;
+            }
         }
     }
 }

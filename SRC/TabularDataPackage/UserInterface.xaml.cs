@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Forms;
 using NLog;
+using System.Collections.Generic;
 
 namespace TabularDataPackage
 {
@@ -23,8 +25,13 @@ namespace TabularDataPackage
         {
             InitializeComponent();
             openFileDialog = new FolderBrowserDialog();
-            Licenses licenses = new Licenses();
+            LicenseJson licenses = new LicenseJson();
             _dataPackages = new DataPackages();
+
+            foreach (var license in licenses.GetLicenses)
+            {
+                this.licenseBox.Items.Add(license.License.Title);
+            }
         }
 
         private void generate()

@@ -49,7 +49,7 @@
                      TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
             
             <Label Content="License" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="licenseBox" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" />
+            <ComboBox Name="licenseBox" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" />
             
             <Label Content="Version" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" />
             <TextBox Name="versionBox" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" />
