@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Forms;
 using NLog;
-using System.Collections.Generic;
 
 namespace TabularDataPackage
 {
@@ -20,12 +19,13 @@ namespace TabularDataPackage
         private readonly FolderBrowserDialog openFileDialog;
         private DataPackages _dataPackages;
         private DataPackage _dataPackage;
+        private LicenseJson licenses;
 
         public UserInterface()
         {
             InitializeComponent();
             openFileDialog = new FolderBrowserDialog();
-            LicenseJson licenses = new LicenseJson();
+            licenses = new LicenseJson();
             _dataPackages = new DataPackages();
 
             foreach (var license in licenses.GetLicenses)
@@ -119,7 +119,7 @@ namespace TabularDataPackage
                 this.nameBox.Text = _dataPackage.Name;
                 this.titleBox.Text = _dataPackage.Title;
                 this.descriptionBox.Text = _dataPackage.Description;
-                this.licenseBox.Text = _dataPackage.License;
+                //this.licenseBox.SelectedItem = 
                 this.versionBox.Text = _dataPackage.Version;
                 this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
             }
