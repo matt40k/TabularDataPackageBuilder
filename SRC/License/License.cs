@@ -4,6 +4,9 @@ using System.Runtime.Serialization;
 [Serializable]
 public class License
 {
+	[DataMember]
+	public string Name { get; set; }
+	
     [DataMember]
     public bool Domain_Content { get; set; }
 
