@@ -119,7 +119,7 @@ namespace TabularDataPackage
                 this.nameBox.Text = _dataPackage.Name;
                 this.titleBox.Text = _dataPackage.Title;
                 this.descriptionBox.Text = _dataPackage.Description;
-                //this.licenseBox.SelectedItem = 
+                this.licenseBox.SelectedValue = licenses.GetNameFromId(_dataPackage.License);
                 this.versionBox.Text = _dataPackage.Version;
                 this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
             }

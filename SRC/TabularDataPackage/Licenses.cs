@@ -47,5 +47,15 @@ namespace TabularDataPackage
                 return _licenses;
             }
         }
+
+        public string GetNameFromId(string Id)
+        {
+            foreach (var license in _licenses)
+            {
+                if (license.License.Id == Id)
+                    return license.License.Title;
+            }
+            return null;
+        }
     }
 }
