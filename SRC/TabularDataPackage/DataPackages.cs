@@ -57,7 +57,7 @@ namespace TabularDataPackage
         {
             foreach (DataPackageResource resource in dataPackage.Resources)
             {
-                if (physicalName == resource.Path)
+                if (Path.GetFileName(physicalName) == resource.Path)
                     return true;
             }
             return false;
