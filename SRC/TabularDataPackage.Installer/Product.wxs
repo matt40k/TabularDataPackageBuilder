@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="Installer" Language="1033" Version="1.0.0.0" Manufacturer="Matt Smith" UpgradeCode="0940725d-809b-4111-b115-d4c121031abb">
+  <Product Id="*" Name="Tabular Data Package Builder" Language="1033" Version="1.0.0.0" Manufacturer="Matt Smith" UpgradeCode="0940725d-809b-4111-b115-d4c121031abb">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    <MediaTemplate />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
 
-    <Feature Id="ProductFeature" Title="Installer" Level="1">
+    <Feature Id="ProductFeature" Title="Tabular Data Package Builder" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <Icon Id="icon.ico" SourceFile="..\..\Logo\data-wrench.ico"/>
+    
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+    <Property Id="ARPURLINFOABOUT">https://github.com/matt40k/TabularDataPackage</Property>
+
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+    </UI>
+    
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="Banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="Dialog.bmp" />
+
+    <Feature Id="MainFeature" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
   </Product>
@@ -14,7 +32,7 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="Installer" />
+        <Directory Id="INSTALLFOLDER" Name="Tabular Data Package Builder" />
       </Directory>
     </Directory>
   </Fragment>
@@ -22,7 +40,7 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="ProductComponent">
-        <File Source="$(var.MyApplication.TargetPath)" />
+        <File Source="$(var.TabularDataPackage.TargetPath)" />
       </Component>
     </ComponentGroup>
   </Fragment>
