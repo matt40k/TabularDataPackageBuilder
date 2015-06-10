@@ -18,8 +18,10 @@ namespace TabularDataPackage
 
         public bool SetVersion(string version)
         {
-            _version = new Version(version);
-            return true;
+            Version ver = null;
+            bool result = Version.TryParse(version, out ver);
+            _version = ver;
+            return result;
         }
     }
 }
