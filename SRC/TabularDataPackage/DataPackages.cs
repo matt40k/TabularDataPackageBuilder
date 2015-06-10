@@ -52,5 +52,15 @@ namespace TabularDataPackage
             var dataPackage = JsonConvert.DeserializeObject<DataPackage>(json);
             return dataPackage;
         }
+
+        public bool InPackage(DataPackage dataPackage, string physicalName)
+        {
+            foreach (DataPackageResource resource in dataPackage.Resources)
+            {
+                if (physicalName == resource.Path)
+                    return true;
+            }
+            return false;
+        }
     }
 }

@@ -46,10 +46,15 @@ namespace TabularDataPackage
             c2.Width = 200;
             c2.Binding = new System.Windows.Data.Binding("Filename");
             csvList.Columns.Add(c2);
+            DataGridTextColumn c3 = new DataGridTextColumn();
+            c3.Header = "InPackage";
+            c3.Width = 30;
+            c3.Binding = new System.Windows.Data.Binding("InPackage");
+            csvList.Columns.Add(c3);
 
             foreach (string csvFile in CsvFiles)
             {
-                this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile) });
+                this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
             }
         }
 
