@@ -7,8 +7,8 @@
     <ProjectGuid>{2E55C97E-FA92-4076-BB12-FC66947EE0B0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Licenses</RootNamespace>
-    <AssemblyName>Licenses</AssemblyName>
+    <RootNamespace>License</RootNamespace>
+    <AssemblyName>License</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
