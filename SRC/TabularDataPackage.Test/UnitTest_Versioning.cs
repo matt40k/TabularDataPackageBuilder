@@ -21,5 +21,23 @@ namespace TabularDataPackage.Test
             versioning.SetVersion("1.1");
             Assert.AreEqual(new Version("1.1"), versioning.GetVersion);
         }
+
+        [TestMethod]
+        public void VersioningIsv11()
+        {
+            TabularDataPackage.Versioning versioning = new TabularDataPackage.Versioning();
+            versioning.SetVersion("v1.1");
+            Assert.AreEqual(new Version("1.1"), versioning.GetVersion);
+        }
+
+        [TestMethod]
+        public void VersioningIsvdot11()
+        {
+            TabularDataPackage.Versioning versioning = new TabularDataPackage.Versioning();
+            versioning.SetVersion("1.1");
+            Assert.AreEqual(new Version("v.1.1"), versioning.GetVersion);
+        }
+
+
     }
 }
