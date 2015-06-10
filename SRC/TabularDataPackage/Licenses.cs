@@ -13,6 +13,7 @@ namespace TabularDataPackage
 
         public LicenseJson()
         {
+            logger.Log(LogLevel.Trace, "LicenseJson.LicenseJson()");
             _licenses = Deserial(ReadLicenseFile);
         }
 
@@ -20,6 +21,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "LicenseJson.LicenseListFileName");
                 return "License.json";
             }
         }
@@ -28,6 +30,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "LicenseJson.ReadLicenseFile");
                 if (File.Exists(LicenseListFileName))
                     return File.ReadAllText(LicenseListFileName);
                 else
@@ -37,6 +40,7 @@ namespace TabularDataPackage
 
         public static List<Licenses> Deserial(string json)
         {
+            logger.Log(LogLevel.Trace, "LicenseJson.Deserial");
             return JsonConvert.DeserializeObject<List<Licenses>>(json); ;
         }
 
@@ -44,12 +48,14 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "LicenseJson.GetLicenses");
                 return _licenses;
             }
         }
 
         public string GetNameFromId(string Id)
         {
+            logger.Log(LogLevel.Trace, "LicenseJson.GetNameFromId");
             foreach (var license in _licenses)
             {
                 if (license.License.Id == Id)
