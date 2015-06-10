@@ -41,6 +41,8 @@
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="ProductComponent">
         <File Source="$(var.TabularDataPackage.TargetPath)" />
+        <File Source="$(var.TabularDataPackage.TargetPath).config" />
+        <File Source="$(var.TabularDataPackage.TargetDir)License.json" />
       </Component>
     </ComponentGroup>
   </Fragment>
