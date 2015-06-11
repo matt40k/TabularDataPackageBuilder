@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Csv.cs" />
     <Compile Include="CsvList.cs" />
     <Compile Include="DataPackages.cs" />
     <Compile Include="Licenses.cs" />
