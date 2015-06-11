@@ -24,13 +24,31 @@ namespace TabularDataPackage
         {
             logger.Log(LogLevel.Trace, "Versioning.SetVersion");
             Version ver = null;
+            
             version = version.ToLower();
             version = version.Replace("v.","");
             version = version.Replace("v","");
-             version = version.Replace(" ","");
+            version = version.Replace(" ","");
+            
             bool result = Version.TryParse(version, out ver);
             _version = ver;
             return result;
+        }
+
+        public void IncreaseMinorVersion()
+        {
+            if (_version == null)
+                _version = new Version("0.1");
+            else
+                _version = new Version(_version.Major, (_version.Minor + 1));
+        }
+
+        public void IncreaseMajorVersion()
+        {
+            if (_version == null)
+                _version = new Version("1.0");
+            else
+                _version = new Version((_version.Major + 1), _version.Minor);
         }
     }
 }
