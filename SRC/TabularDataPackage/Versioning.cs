@@ -40,7 +40,17 @@ namespace TabularDataPackage
             if (_version == null)
                 _version = new Version("0.1");
             else
-                _version = new Version(_version.Major, (_version.Minor + 1));
+            {
+                if (_version.Revision > 0)
+                    _version = new Version(_version.Major, (_version.Minor + 1), _version.Build, _version.Revision);
+                else
+                {
+                    if (_version.Build > 0)
+                        _version = new Version(_version.Major, (_version.Minor + 1), _version.Build);
+                    else
+                        _version = new Version(_version.Major, (_version.Minor + 1));
+                }
+            }
         }
 
         public void IncreaseMajorVersion()
@@ -48,7 +58,17 @@ namespace TabularDataPackage
             if (_version == null)
                 _version = new Version("1.0");
             else
-                _version = new Version((_version.Major + 1), _version.Minor);
+            {
+                if (_version.Revision > 0)
+                    _version = new Version((_version.Major +1), _version.Minor, _version.Build, _version.Revision);
+                else
+                {
+                    if (_version.Build > 0)
+                        _version = new Version((_version.Major + 1), _version.Minor, _version.Build);
+                    else
+                        _version = new Version((_version.Major + 1), _version.Minor);
+                }
+            }
         }
     }
 }
