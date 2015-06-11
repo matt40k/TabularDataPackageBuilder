@@ -23,6 +23,12 @@ namespace TabularDataPackage
         public bool SetVersion(string version)
         {
             logger.Log(LogLevel.Trace, "Versioning.SetVersion");
+
+            if (string.IsNullOrEmpty(version))
+            {
+                _version = new Version("0.1");
+                return true;
+            }
             Version ver = null;
             
             version = version.ToLower();
