@@ -34,8 +34,8 @@ namespace TabularDataPackage.Test
         public void VersioningIsvdot11()
         {
             TabularDataPackage.Versioning versioning = new TabularDataPackage.Versioning();
-            versioning.SetVersion("1.1");
-            Assert.AreEqual(new Version("v.1.1"), versioning.GetVersion);
+            versioning.SetVersion("v.1.1");
+            Assert.AreEqual(new Version("1.1"), versioning.GetVersion);
         }
 
 
