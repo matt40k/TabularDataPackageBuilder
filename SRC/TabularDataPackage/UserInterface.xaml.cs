@@ -20,6 +20,7 @@ namespace TabularDataPackage
         private DataPackages _dataPackages;
         private DataPackage _dataPackage;
         private LicenseJson licenses;
+        private Versioning _versioning;
 
         public UserInterface()
         {
@@ -27,6 +28,7 @@ namespace TabularDataPackage
             openFileDialog = new FolderBrowserDialog();
             licenses = new LicenseJson();
             _dataPackages = new DataPackages();
+            _versioning = new Versioning();
 
             foreach (var license in licenses.GetLicenses)
             {
@@ -125,7 +127,8 @@ namespace TabularDataPackage
                 this.titleBox.Text = _dataPackage.Title;
                 this.descriptionBox.Text = _dataPackage.Description;
                 this.licenseBox.SelectedValue = licenses.GetNameFromId(_dataPackage.License);
-                this.versionBox.Text = _dataPackage.Version;
+                _versioning.SetVersion(_dataPackage.Version);
+                this.versionBox.Text = _versioning.GetVersion.ToString();
                 this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
             }
             else
