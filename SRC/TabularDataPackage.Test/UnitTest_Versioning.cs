@@ -4,9 +4,17 @@ using TabularDataPackage;
 
 namespace TabularDataPackage.Test
 {
+    /// <summary>
+    /// Summary description for UnitTest_Versioning
+    /// </summary>
     [TestClass]
     public class UnitTest_Versioning
     {
+        public UnitTest_Versioning()
+        {
+
+        }
+
         [TestMethod]
         public void VersioningIsNullReturn01()
         {
