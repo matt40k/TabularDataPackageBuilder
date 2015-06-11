@@ -24,6 +24,10 @@ namespace TabularDataPackage
         {
             logger.Log(LogLevel.Trace, "Versioning.SetVersion");
             Version ver = null;
+            version = version.ToLower();
+            version = version.Replace("v.","");
+            version = version.Replace("v","");
+             version = version.Replace(" ","");
             bool result = Version.TryParse(version, out ver);
             _version = ver;
             return result;
