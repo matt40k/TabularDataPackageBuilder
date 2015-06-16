@@ -127,9 +127,11 @@ namespace TabularDataPackage
                 this.titleBox.Text = _dataPackage.Title;
                 this.descriptionBox.Text = _dataPackage.Description;
                 this.licenseBox.SelectedValue = licenses.GetNameFromId(_dataPackage.License);
+                _versioning.DataPackageJsonFilePath = DataPackageJsonFilePath;
                 _versioning.SetVersion(_dataPackage.Version);
+                _versioning.SetLastUpdated(_dataPackage.LastUpdated);
                 this.versionBox.Text = _versioning.GetVersion.ToString();
-                this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
+                this.lastUpdatedBox.Text = _versioning.GetLastUpdated.ToString();
             }
             else
                 clearSettings();
@@ -166,11 +168,19 @@ namespace TabularDataPackage
             }
         }
 
+        public string DataPackageJsonFilePath
+        {
+            get
+            {
+                return Path.Combine(pathBox.Text, "DataPackage.json");
+            }
+        }
+
         public bool IsExistDataPackageJson
         {
             get
             {
-                return File.Exists(Path.Combine(pathBox.Text, "DataPackage.json"));
+                return File.Exists(DataPackageJsonFilePath);
             }
         }
 

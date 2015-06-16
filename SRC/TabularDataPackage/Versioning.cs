@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NLog;
 
 namespace TabularDataPackage
@@ -8,6 +9,8 @@ namespace TabularDataPackage
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private Version _version;
+        private DateTime _lastUpdated;
+        public string DataPackageJsonFilePath { get; set; }
 
         public Version GetVersion
         {
@@ -17,6 +20,25 @@ namespace TabularDataPackage
                 if (_version == null)
                     return new Version("0.1");
                 return _version;
+            }
+        }
+
+        public DateTime GetLastUpdated
+        {
+            get
+            {
+                if (_lastUpdated == new DateTime())
+                {
+                    if (File.Exists(DataPackageJsonFilePath))
+                    {
+                        return File.GetLastWriteTime(DataPackageJsonFilePath);
+                    }
+                    else
+                    {
+                        return DateTime.Now;
+                    }
+                }
+                return _lastUpdated;
             }
         }
 
@@ -41,8 +63,24 @@ namespace TabularDataPackage
             return result;
         }
 
+        public bool SetLastUpdated(string LastUpdated)
+        {
+            logger.Log(LogLevel.Trace, "Versioning.SetLastUpdated");
+            if (string.IsNullOrEmpty(LastUpdated))
+                return false;
+            DateTime dateTime;
+            bool result = DateTime.TryParse(LastUpdated, out dateTime);
+            if (result)
+            {
+                _lastUpdated = dateTime;
+                return true;
+            }
+            return false;
+        }
+
         public void IncreaseMinorVersion()
         {
+            logger.Log(LogLevel.Trace, "Versioning.IncreaseMinorVersion");
             if (_version == null)
                 _version = new Version("0.1");
             else
@@ -61,6 +99,7 @@ namespace TabularDataPackage
 
         public void IncreaseMajorVersion()
         {
+            logger.Log(LogLevel.Trace, "Versioning.IncreaseMajorVersion");
             if (_version == null)
                 _version = new Version("1.0");
             else
