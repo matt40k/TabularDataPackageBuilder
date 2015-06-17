@@ -25,6 +25,7 @@ namespace TabularDataPackage
         public UserInterface()
         {
             InitializeComponent();
+
             openFileDialog = new FolderBrowserDialog();
             licenses = new LicenseJson();
             _dataPackages = new DataPackages();
@@ -33,30 +34,6 @@ namespace TabularDataPackage
             foreach (var license in licenses.GetLicenses)
             {
                 this.licenseBox.Items.Add(license.License.Title);
-            }
-        }
-
-        private void generate()
-        {
-            DataGridCheckBoxColumn c1 = new DataGridCheckBoxColumn();
-            c1.Header = "";
-            c1.Binding = new System.Windows.Data.Binding("Selected");
-            c1.Width = 30;
-            csvList.Columns.Add(c1);
-            DataGridTextColumn c2 = new DataGridTextColumn();
-            c2.Header = "Filename";
-            c2.Width = 200;
-            c2.Binding = new System.Windows.Data.Binding("Filename");
-            csvList.Columns.Add(c2);
-            DataGridTextColumn c3 = new DataGridTextColumn();
-            c3.Header = "InPackage";
-            c3.Width = 30;
-            c3.Binding = new System.Windows.Data.Binding("InPackage");
-            csvList.Columns.Add(c3);
-
-            foreach (string csvFile in CsvFiles)
-            {
-                this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
             }
         }
 
@@ -97,7 +74,6 @@ namespace TabularDataPackage
                 dpStatus.Text = GetDataPackageJsonStatus;
                 _dataPackages.ProjectDirectory = pathBox.Text;
                 LoadPropertiesFromPackage();
-                generate();
                 this.buttonSave.IsEnabled = true;
             }
             else
@@ -132,6 +108,11 @@ namespace TabularDataPackage
                 _versioning.SetLastUpdated(_dataPackage.LastUpdated);
                 this.versionBox.Text = _versioning.GetVersion.ToString();
                 this.lastUpdatedBox.Text = _versioning.GetLastUpdated.ToString();
+
+                foreach (string csvFile in CsvFiles)
+                {
+                    this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
+                }
             }
             else
                 clearSettings();
