@@ -21,6 +21,7 @@ namespace TabularDataPackage
         private DataPackage _dataPackage;
         private LicenseJson licenses;
         private Versioning _versioning;
+        private List<CsvList> _csvList = new List<CsvList>();
 
         public UserInterface()
         {
@@ -111,8 +112,9 @@ namespace TabularDataPackage
 
                 foreach (string csvFile in CsvFiles)
                 {
-                    this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
+                    _csvList.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
                 }
+                this.csvList.ItemsSource = _csvList;
             }
             else
                 clearSettings();
