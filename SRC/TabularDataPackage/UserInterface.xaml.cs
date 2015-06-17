@@ -52,7 +52,9 @@ namespace TabularDataPackage
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-
+            _versioning.IncreaseMinorVersion();
+            //_versioning.IncreaseMajorVersion();
+            _versioning.SetNewUpdatedDate();
         }
 
         private void enableDisable(bool status)

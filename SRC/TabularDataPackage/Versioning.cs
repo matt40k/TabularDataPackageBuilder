@@ -78,6 +78,11 @@ namespace TabularDataPackage
             return false;
         }
 
+        public void SetNewUpdatedDate()
+        {
+            _lastUpdated = DateTime.Now;
+        }
+
         public void IncreaseMinorVersion()
         {
             logger.Log(LogLevel.Trace, "Versioning.IncreaseMinorVersion");
