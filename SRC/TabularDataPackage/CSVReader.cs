@@ -38,12 +38,12 @@ using System.IO;
 using System.Data;
 using System.Text;
 
-namespace Com.StellmanGreene.CSVReader
+namespace TabularDataPackage
 {
     /// <summary>
     /// Read CSV-formatted data from a file or TextReader
     /// </summary>
-    public class CSVReader : IDisposable
+    public class CsvReader : IDisposable
     {
         public const string NEWLINE = "\r\n";
 
@@ -63,7 +63,7 @@ namespace Com.StellmanGreene.CSVReader
         /// Read CSV-formatted data from a file
         /// </summary>
         /// <param name="filename">Name of the CSV file</param>
-        public CSVReader(FileInfo csvFileInfo)
+        public CsvReader(FileInfo csvFileInfo)
         {
             if (csvFileInfo == null)
                 throw new ArgumentNullException("Null FileInfo passed to CSVReader");
@@ -75,7 +75,7 @@ namespace Com.StellmanGreene.CSVReader
         /// Read CSV-formatted data from a string
         /// </summary>
         /// <param name="csvData">String containing CSV data</param>
-        public CSVReader(string csvData)
+        public CsvReader(string csvData)
         {
             if (csvData == null)
                 throw new ArgumentNullException("Null string passed to CSVReader");
@@ -88,7 +88,7 @@ namespace Com.StellmanGreene.CSVReader
         /// Read CSV-formatted data from a TextReader
         /// </summary>
         /// <param name="reader">TextReader that's reading CSV-formatted data</param>
-        public CSVReader(TextReader reader)
+        public CsvReader(TextReader reader)
         {
             if (reader == null)
                 throw new ArgumentNullException("Null TextReader passed to CSVReader");
@@ -262,7 +262,7 @@ namespace Com.StellmanGreene.CSVReader
         /// <returns>System.Data.DataTable object that contains the CSV data</returns>
         public static DataTable ReadCSVFile(string filename, bool headerRow, int scanRows)
         {
-            using (CSVReader reader = new CSVReader(new FileInfo(filename)))
+            using (CsvReader reader = new CsvReader(new FileInfo(filename)))
             {
                 reader.ScanRows = scanRows;
                 return reader.CreateDataTable(headerRow);
@@ -277,7 +277,7 @@ namespace Com.StellmanGreene.CSVReader
         /// <returns>System.Data.DataTable object that contains the CSV data</returns>
         public static DataTable ReadCSVFile(string filename, bool headerRow)
         {
-            using (CSVReader reader = new CSVReader(new FileInfo(filename)))
+            using (CsvReader reader = new CsvReader(new FileInfo(filename)))
                 return reader.CreateDataTable(headerRow);
         }
 

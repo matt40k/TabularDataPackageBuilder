@@ -65,5 +65,14 @@ namespace TabularDataPackage
             FileInfo _fileInfo = new FileInfo(filePath);
             return _fileInfo.Length;
         }
+
+        public bool Load
+        {
+            get
+            {
+                //DataTable dbtable = CSVReader.ReadCSVFile(filename, true);
+                return true;
+            }
+        }
     }
 }

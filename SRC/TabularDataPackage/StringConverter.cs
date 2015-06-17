@@ -35,7 +35,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Com.StellmanGreene.CSVReader
+namespace TabularDataPackage
 {
     /// <summary>
     /// Static class to convert strings to typed values

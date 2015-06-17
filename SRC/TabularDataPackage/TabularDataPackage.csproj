@@ -61,7 +61,7 @@
   <ItemGroup>
     <Compile Include="Csv.cs" />
     <Compile Include="CsvList.cs" />
-    <Compile Include="CSVReader.cs" />
+    <Compile Include="CsvReader.cs" />
     <Compile Include="DataPackages.cs" />
     <Compile Include="Licenses.cs" />
     <Compile Include="Program.cs" />

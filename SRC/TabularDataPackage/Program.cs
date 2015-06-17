@@ -12,7 +12,6 @@ namespace TabularDataPackage
         static void Main(string[] args)
         {
             logger.Log(LogLevel.Trace, "Main");
-            logger.Log(LogLevel.Trace, args);
             if (args.Length == 0)
             {
                 // Run User interface
@@ -24,6 +23,10 @@ namespace TabularDataPackage
             {
                 // Run in console mode
                 logger.Log(LogLevel.Trace, "Running Console mode");
+                foreach (string arg in args)
+                {
+                    logger.Log(LogLevel.Trace, "Arg: " + arg); 
+                }
             }
 
         }
