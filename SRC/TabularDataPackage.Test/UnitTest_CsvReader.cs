@@ -1,9 +1,9 @@
-﻿/* CsvReader - a simple open source C# class library to read CSV data
- * by Andrew Stellman - http://www.stellman-greene.com/CsvReader
+﻿/* CSVReader - a simple open source C# class library to read CSV data
+ * by Andrew Stellman - https://www.stellman-greene.com/CSVReader/
  * 
- * Unit tests/TestCsvReader.cs - NUnit tests to verify the CsvReader class
+ * Unit tests/TestCsvReader.cs - NUnit tests to verify the CSVReader class
  * 
- * download the latest version: http://svn.stellman-greene.com/CsvReader
+ * download the latest version: https://svn.stellman-greene.com/CSVReader
  * 
  * (c) 2008, Stellman & Greene Consulting
  * All rights reserved.
@@ -249,7 +249,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
         [TestMethod]
         public void TestUTF8SpecialChar()
         {
-            DataTable table = CsvReader.ReadCSVFile(AppDomain.CurrentDomain.BaseDirectory + @"\Unit tests\UTF8-specialchar.csv", true);
+            DataTable table = CsvReader.ReadCSVFile(AppDomain.CurrentDomain.BaseDirectory + @"\UTF8-specialchar.csv", true);
 
             List<string> columns = new List<string>() { "ééééésetnb", "first", "middle", "last", "name1", "name2", "name3", "name4", "medline_search1" };
 
