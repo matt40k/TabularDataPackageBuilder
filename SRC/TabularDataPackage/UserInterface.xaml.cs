@@ -112,7 +112,7 @@ namespace TabularDataPackage
 
                 foreach (string csvFile in CsvFiles)
                 {
-                    _csvList.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
+                    _csvList.Add(new CsvList() { Selected = true, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
                 }
                 this.csvList.ItemsSource = _csvList;
             }
