@@ -1,9 +1,9 @@
-﻿/* CSVReader - a simple open source C# class library to read CSV data
- * by Andrew Stellman - http://www.stellman-greene.com/CSVReader
+﻿/* CsvReader - a simple open source C# class library to read CSV data
+ * by Andrew Stellman - http://www.stellman-greene.com/CsvReader
  * 
- * Unit tests/TestCSVReader.cs - NUnit tests to verify the CSVReader class
+ * Unit tests/TestCsvReader.cs - NUnit tests to verify the CsvReader class
  * 
- * download the latest version: http://svn.stellman-greene.com/CSVReader
+ * download the latest version: http://svn.stellman-greene.com/CsvReader
  * 
  * (c) 2008, Stellman & Greene Consulting
  * All rights reserved.
@@ -34,14 +34,15 @@
 
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using System.IO;
 using System.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TabularDataPackage;
 
-namespace Com.StellmanGreene.CSVReader.Unit_tests
+namespace TabularDataPackage.Test
 {
-    [TestFixture]
-    public class TestCSVReader
+    [TestClass]
+    public class TestCsvReader
     {
         string fileContents = @"text field,123.456,""quoted """" field"",10446744073709551616,x,1,true,false,FALSE,99999999999,.000000001,""10""
 more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE,true,1000,1.46,xyz";
@@ -49,7 +50,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
 
         string filename = "testfile.csv";
 
-        [TestFixtureSetUp]
+        [ClassInitialize]
         public void TestFixtureSetUp()
         {
             ulong u = ulong.Parse("10446744073709551616");
@@ -62,7 +63,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
             };
         }
 
-        [SetUp]
+        [TestInitialize]
         public void SetUp()
         {
             if (File.Exists(filename))
@@ -73,29 +74,30 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
 
         // Methods to test reading individual rows
 
-        [Test]
+        [TestMethod]
         public void TestStringReadRows()
         {
-            using (CSVReader reader = new CSVReader(fileContents))
+            using (CsvReader reader = new CsvReader(fileContents))
                 CheckExpectedRows(expectedRows, reader);
         }
 
-        [Test]
+        [TestMethod]
         public void TestStringReaderReadRows()
         {
-            using (CSVReader reader = new CSVReader(new StringReader(fileContents)))
+            using (CsvReader reader = new CsvReader(new StringReader(fileContents)))
                 CheckExpectedRows(expectedRows, reader);
         }
 
-        [Test]
+        [TestMethod]
         public void TestFileInfoReadRows()
         {
             File.WriteAllText(filename, fileContents);
-            using (CSVReader reader = new CSVReader(new FileInfo(filename)))
+            using (CsvReader reader = new CsvReader(new FileInfo(filename)))
                 CheckExpectedRows(expectedRows, reader);
         }
 
-        [Test]
+        /*
+        [TestMethod]
         public void TestExtensionMethodReadLine()
         {
             string firstRow = fileContents.Substring(0, fileContents.LastIndexOf('\n') - 1);
@@ -103,28 +105,29 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
             CheckNextRow(firstRow.ReadCSVLine(), expectedRows[0]);
             CheckNextRow(secondRow.ReadCSVLine(), expectedRows[1]);
         }
+         */
 
-        [Test]
+        [TestMethod]
         public void TestEmptyFile()
         {
             File.WriteAllText(filename, "");
-            using (CSVReader reader = new CSVReader(new FileInfo(filename)))
+            using (CsvReader reader = new CsvReader(new FileInfo(filename)))
                 Assert.IsNull(reader.ReadRow(), "ReadRow() should return null for an empty file");
         }
 
-        [Test]
+        [TestMethod]
         public void TestEmptyString()
         {
-            using (CSVReader reader = new CSVReader(""))
+            using (CsvReader reader = new CsvReader(""))
                 Assert.IsNull(reader.ReadRow(), "ReadRow() should return null for an empty string");
         }
 
-        [Test]
+        [TestMethod]
         public void TestNullString()
         {
             try
             {
-                using (CSVReader reader = new CSVReader((string)null))
+                using (CsvReader reader = new CsvReader((string)null))
                     Assert.IsNull(reader.ReadRow(), "ReadRow() should return null for an empty string");
 
                 Assert.Fail();
@@ -141,7 +144,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
         /// </summary>
         /// <param name="expectedRows">List of object lists that contains the expected row data</param>
         /// <param name="reader">Reader to read from</param>
-        private static void CheckExpectedRows(List<List<object>> expectedRows, CSVReader reader)
+        private static void CheckExpectedRows(List<List<object>> expectedRows, CsvReader reader)
         {
             foreach (List<object> expected in expectedRows)
             {
@@ -171,40 +174,42 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
 
         // Methods to test reading entire data tables
 
-        [Test]
+        [TestMethod]
         public void TestStringDataTable()
         {
             DataTable table;
-            using (CSVReader reader = new CSVReader(fileContents))
+            using (CsvReader reader = new CsvReader(fileContents))
                 table = reader.CreateDataTable(false);
             CheckTable(table);
         }
 
-        [Test]
+        [TestMethod]
         public void TestStringReaderDataTable()
         {
             DataTable table;
-            using (CSVReader reader = new CSVReader(new StringReader(fileContents)))
+            using (CsvReader reader = new CsvReader(new StringReader(fileContents)))
                 table = reader.CreateDataTable(false);
             CheckTable(table);
         }
 
-        [Test]
+        [TestMethod]
         public void TestFileInfoDataTable()
         {
             DataTable table;
             File.WriteAllText(filename, fileContents);
-            using (CSVReader reader = new CSVReader(new FileInfo(filename)))
+            using (CsvReader reader = new CsvReader(new FileInfo(filename)))
                 table = reader.CreateDataTable(false);
             CheckTable(table);
         }
 
-        [Test]
+        /*
+        [TestMethod]
         public void TestExtensionMethodDataTable()
         {
             DataTable table = fileContents.ReadCSVTable(false);
             CheckTable(table);
         }
+         */
 
 
         /// <summary>
@@ -242,10 +247,10 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestUTF8SpecialChar()
         {
-            DataTable table = CSVReader.ReadCSVFile(AppDomain.CurrentDomain.BaseDirectory + @"\Unit tests\UTF8-specialchar.csv", true);
+            DataTable table = CsvReader.ReadCSVFile(AppDomain.CurrentDomain.BaseDirectory + @"\Unit tests\UTF8-specialchar.csv", true);
 
             List<string> columns = new List<string>() { "ééééésetnb", "first", "middle", "last", "name1", "name2", "name3", "name4", "medline_search1" };
 
