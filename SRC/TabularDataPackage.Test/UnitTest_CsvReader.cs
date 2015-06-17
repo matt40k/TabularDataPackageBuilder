@@ -48,10 +48,9 @@ namespace TabularDataPackage.Test
 more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE,true,1000,1.46,xyz";
         List<List<object>> expectedRows = null;
 
-        string filename = "testfile.csv";
+        public string filename = "testfile.csv";
 
-        [ClassInitialize]
-        public void TestFixtureSetUp()
+        public TestCsvReader()
         {
             ulong u = ulong.Parse("10446744073709551616");
             byte b1 = 1;
