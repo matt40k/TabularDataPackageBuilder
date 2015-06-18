@@ -94,7 +94,8 @@ namespace TabularDataPackage
             this.licenseBox.Text = "";
             this.versionBox.Text = "";
             this.lastUpdatedBox.Text = "";
-            this.csvList.Items.Clear();
+            _csvList.Clear();
+            this.csvList.ItemsSource = null;
         }
 
         private void LoadPropertiesFromPackage()
