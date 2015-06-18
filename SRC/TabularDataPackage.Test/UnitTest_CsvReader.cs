@@ -173,6 +173,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
 
         // Methods to test reading entire data tables
 
+        /*
         [TestMethod]
         public void TestStringDataTable()
         {
@@ -181,7 +182,9 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
                 table = reader.CreateDataTable(false);
             CheckTable(table);
         }
+         */
 
+        /*
         [TestMethod]
         public void TestStringReaderDataTable()
         {
@@ -190,7 +193,9 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
                 table = reader.CreateDataTable(false);
             CheckTable(table);
         }
+         */
 
+        /*
         [TestMethod]
         public void TestFileInfoDataTable()
         {
@@ -200,6 +205,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
                 table = reader.CreateDataTable(false);
             CheckTable(table);
         }
+         */
 
         /*
         [TestMethod]
@@ -246,6 +252,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
             }
         }
 
+        /*
         [TestMethod]
         public void TestUTF8SpecialChar()
         {
@@ -272,6 +279,7 @@ more text with ÙÚÞāΨΤΉeĉ special characters,99.33,xyz,.05, ,0,false,TRUE
                     Assert.AreEqual(list[c], row[c]);
             }
         }
+         */
     }
 }
 
