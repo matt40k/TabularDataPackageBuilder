@@ -38,7 +38,6 @@ public class DataPackageResourceSchemaField
     [DataMember]
     public DataPackageResourceSchemaFieldConstraints Constraints { get; set; }
 
-    //[ScriptIgnore]
     public int Length
     {
         get
@@ -52,7 +51,6 @@ public class DataPackageResourceSchemaField
         }
     }
 
-    //[ScriptIgnore]
     public int Precision
     {
         get
@@ -66,7 +64,6 @@ public class DataPackageResourceSchemaField
         }
     }
 
-    //[ScriptIgnore]
     public int Scale
     {
         get
@@ -80,7 +77,6 @@ public class DataPackageResourceSchemaField
         }
     }
 
-    //[ScriptIgnore]
     public DbType DbType
     {
         get

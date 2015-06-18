@@ -24,7 +24,8 @@ namespace TabularDataPackage.Test
             string contents = "This is a test file. Please delete me.";
             string tempFile = Path.GetTempFileName();
             File.WriteAllText(tempFile, contents);
-            string hash = _csv.GetSHA1Hash(tempFile);
+            _csv.Load = tempFile;
+            string hash = _csv.GetSHA1Hash;
             File.Delete(tempFile);
             Assert.AreEqual("CC5872242874C1D33B6B41F37279321D6959F34C", hash);
         }
@@ -36,7 +37,8 @@ namespace TabularDataPackage.Test
             string contents = "This is a test file. Please delete me.";
             string tempFile = Path.GetTempFileName();
             File.WriteAllText(tempFile, contents);
-            string hash = _csv.GetSHA1Hash(tempFile);
+            _csv.Load = tempFile;
+            string hash = _csv.GetSHA1Hash;
             File.Delete(tempFile);
             Assert.AreNotEqual("NotTheHash", hash);
         }
@@ -48,7 +50,8 @@ namespace TabularDataPackage.Test
             string contents = "This is a test file. Please delete me.";
             string tempFile = Path.GetTempFileName();
             File.WriteAllText(tempFile, contents, Encoding.UTF8);
-            bool isUTF8 = _csv.GetIsUTF8(tempFile);
+            _csv.Load = tempFile;
+            bool isUTF8 = _csv.GetIsUTF8;
             File.Delete(tempFile);
             Assert.AreEqual(true, isUTF8);
         }
@@ -60,7 +63,8 @@ namespace TabularDataPackage.Test
             string contents = "This is a test file. Please delete me.";
             string tempFile = Path.GetTempFileName();
             File.WriteAllText(tempFile, contents, Encoding.Unicode);
-            bool isUTF8 = _csv.GetIsUTF8(tempFile);
+            _csv.Load = tempFile;
+            bool isUTF8 = _csv.GetIsUTF8;
             File.Delete(tempFile);
             Assert.AreNotEqual(true, isUTF8);
         }

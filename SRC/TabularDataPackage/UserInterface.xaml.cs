@@ -21,10 +21,12 @@ namespace TabularDataPackage
         private DataPackage _dataPackage;
         private LicenseJson licenses;
         private Versioning _versioning;
+        private List<CsvList> _csvList = new List<CsvList>();
 
         public UserInterface()
         {
             InitializeComponent();
+
             openFileDialog = new FolderBrowserDialog();
             licenses = new LicenseJson();
             _dataPackages = new DataPackages();
@@ -33,30 +35,6 @@ namespace TabularDataPackage
             foreach (var license in licenses.GetLicenses)
             {
                 this.licenseBox.Items.Add(license.License.Title);
-            }
-        }
-
-        private void generate()
-        {
-            DataGridCheckBoxColumn c1 = new DataGridCheckBoxColumn();
-            c1.Header = "";
-            c1.Binding = new System.Windows.Data.Binding("Selected");
-            c1.Width = 30;
-            csvList.Columns.Add(c1);
-            DataGridTextColumn c2 = new DataGridTextColumn();
-            c2.Header = "Filename";
-            c2.Width = 200;
-            c2.Binding = new System.Windows.Data.Binding("Filename");
-            csvList.Columns.Add(c2);
-            DataGridTextColumn c3 = new DataGridTextColumn();
-            c3.Header = "InPackage";
-            c3.Width = 30;
-            c3.Binding = new System.Windows.Data.Binding("InPackage");
-            csvList.Columns.Add(c3);
-
-            foreach (string csvFile in CsvFiles)
-            {
-                this.csvList.Items.Add(new CsvList() { Selected = false, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
             }
         }
 
@@ -74,7 +52,9 @@ namespace TabularDataPackage
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-
+            _versioning.IncreaseMinorVersion();
+            //_versioning.IncreaseMajorVersion();
+            _versioning.SetNewUpdatedDate();
         }
 
         private void enableDisable(bool status)
@@ -97,7 +77,6 @@ namespace TabularDataPackage
                 dpStatus.Text = GetDataPackageJsonStatus;
                 _dataPackages.ProjectDirectory = pathBox.Text;
                 LoadPropertiesFromPackage();
-                generate();
                 this.buttonSave.IsEnabled = true;
             }
             else
@@ -115,7 +94,8 @@ namespace TabularDataPackage
             this.licenseBox.Text = "";
             this.versionBox.Text = "";
             this.lastUpdatedBox.Text = "";
-            this.csvList.Items.Clear();
+            _csvList.Clear();
+            this.csvList.ItemsSource = null;
         }
 
         private void LoadPropertiesFromPackage()
@@ -127,9 +107,17 @@ namespace TabularDataPackage
                 this.titleBox.Text = _dataPackage.Title;
                 this.descriptionBox.Text = _dataPackage.Description;
                 this.licenseBox.SelectedValue = licenses.GetNameFromId(_dataPackage.License);
+                _versioning.DataPackageJsonFilePath = DataPackageJsonFilePath;
                 _versioning.SetVersion(_dataPackage.Version);
+                _versioning.SetLastUpdated(_dataPackage.LastUpdated);
                 this.versionBox.Text = _versioning.GetVersion.ToString();
-                this.lastUpdatedBox.Text = _dataPackage.LastUpdated;
+                this.lastUpdatedBox.Text = _versioning.GetLastUpdated.ToString();
+
+                foreach (string csvFile in CsvFiles)
+                {
+                    _csvList.Add(new CsvList() { Selected = true, Filename = Path.GetFileNameWithoutExtension(csvFile), InPackage = _dataPackages.InPackage(_dataPackage, csvFile) });
+                }
+                this.csvList.ItemsSource = _csvList;
             }
             else
                 clearSettings();
@@ -166,11 +154,19 @@ namespace TabularDataPackage
             }
         }
 
+        public string DataPackageJsonFilePath
+        {
+            get
+            {
+                return Path.Combine(pathBox.Text, "DataPackage.json");
+            }
+        }
+
         public bool IsExistDataPackageJson
         {
             get
             {
-                return File.Exists(Path.Combine(pathBox.Text, "DataPackage.json"));
+                return File.Exists(DataPackageJsonFilePath);
             }
         }
 
