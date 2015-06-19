@@ -200,5 +200,41 @@ namespace TabularDataPackage
 
             return "string";
         }
+
+        public string GetFileName
+        {
+            get
+            {
+                return Path.GetFileName(filePath);
+            }
+        }
+
+        public string GetHash
+        {
+            get
+            {
+                return "sha1:" + GetSHA1Hash;
+            }
+        }
+
+        public DataPackageResource GetFileResource
+        {
+            get
+            {
+                DataPackageResource resource = new DataPackageResource();
+                resource.Path = GetFileName;
+                resource.Hash = GetHash;
+                resource.Bytes = GetFileSizeInBytes;
+                List<CsvColumn> CsvColumns = GetCsvColumns;
+                foreach (CsvColumn column in CsvColumns)
+                {
+                    DataPackageResourceSchemaField field = new DataPackageResourceSchemaField();
+                    field.Name = column.Name;
+                    field.Type = column.Type;
+                    resource.Schema.Fields.Add(field);
+                }
+                return resource;
+            }
+        }
     }
 }

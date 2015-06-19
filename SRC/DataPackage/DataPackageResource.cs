@@ -11,5 +11,11 @@ public class DataPackageResource
     public string Path { get; set; }
 
     [DataMember]
+    public string Hash { get; set; }
+
+    [DataMember]
+    public long Bytes { get; set; }
+
+    [DataMember]
     public DataPackageResourceSchema Schema { get; set; }
 }
