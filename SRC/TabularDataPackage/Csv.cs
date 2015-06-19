@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using NLog;
 
 namespace TabularDataPackage
 {
@@ -11,6 +12,7 @@ namespace TabularDataPackage
     /// </summary>
     public class Csv
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private string filePath;
 
         /// <summary>
@@ -22,6 +24,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetSHA1Hash");
                 StringBuilder formatted;
                 using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 using (BufferedStream bs = new BufferedStream(fs))
@@ -50,6 +53,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetIsUTF8");
                 // Source: http://stackoverflow.com/questions/3825390/effective-way-to-find-any-files-encoding
                 // Read the BOM
                 var bom = new byte[4];
@@ -73,6 +77,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetFileSizeInBytes");
                 FileInfo _fileInfo = new FileInfo(filePath);
                 return _fileInfo.Length;
             }
@@ -82,6 +87,7 @@ namespace TabularDataPackage
         {
             set
             {
+                logger.Log(LogLevel.Trace, "Csv.Load");
                 filePath = value;
             }
         }
@@ -90,6 +96,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetCsvColumns");
                 List<CsvColumn> _csvColumns = new List<CsvColumn>();
                 string header;
                 string body;
@@ -124,6 +131,7 @@ namespace TabularDataPackage
 
         public string ConvertStringToType(string value)
         {
+            logger.Log(LogLevel.Trace, "Csv.ConvertStringToType()");
             DateTime dateTimeResult;
             if (DateTime.TryParse(value, out dateTimeResult))
             {
@@ -205,6 +213,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetFileName");
                 return Path.GetFileName(filePath);
             }
         }
@@ -213,6 +222,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetHash");
                 return "sha1:" + GetSHA1Hash;
             }
         }
@@ -221,6 +231,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Csv.GetFileResource");
                 DataPackageResource resource = new DataPackageResource();
                 resource.Path = GetFileName;
                 resource.Hash = GetHash;
@@ -228,6 +239,7 @@ namespace TabularDataPackage
                 List<CsvColumn> CsvColumns = GetCsvColumns;
                 foreach (CsvColumn column in CsvColumns)
                 {
+                    logger.Log(LogLevel.Trace, "Csv.GetFileResource - " + column.Name);
                     DataPackageResourceSchemaField field = new DataPackageResourceSchemaField();
                     field.Name = column.Name;
                     field.Type = column.Type;

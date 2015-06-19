@@ -25,6 +25,7 @@ namespace TabularDataPackage
 
         public UserInterface()
         {
+            logger.Log(LogLevel.Trace, "UserInterface()");
             InitializeComponent();
 
             openFileDialog = new FolderBrowserDialog();
@@ -40,6 +41,7 @@ namespace TabularDataPackage
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "UserInterface.buttonBrowse_Click()");
             var dialog = new FolderBrowserDialog();
             string defaultDir = GetDefaultDirectory;
             if (string.IsNullOrEmpty(defaultDir))
@@ -52,6 +54,7 @@ namespace TabularDataPackage
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "UserInterface.buttonSave_Click()");
             _versioning.IncreaseMinorVersion();
             //_versioning.IncreaseMajorVersion();
             _versioning.SetNewUpdatedDate();
@@ -66,6 +69,7 @@ namespace TabularDataPackage
 
         private void enableDisable(bool status)
         {
+            logger.Log(LogLevel.Trace, "UserInterface.enableDisable()");
             nameBox.IsEnabled = status;
             titleBox.IsEnabled = status;
             descriptionBox.IsEnabled = status;
@@ -77,6 +81,7 @@ namespace TabularDataPackage
 
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "UserInterface.pathBox_TextChanged()");
             if (Directory.Exists(pathBox.Text))
             {
                 enableDisable(true);
@@ -95,6 +100,7 @@ namespace TabularDataPackage
 
         private void clearSettings()
         {
+            logger.Log(LogLevel.Trace, "UserInterface.clearSettings()");
             this.nameBox.Text = "";
             this.titleBox.Text = "";
             this.descriptionBox.Text = "";
@@ -107,6 +113,7 @@ namespace TabularDataPackage
 
         private void LoadPropertiesFromPackage()
         {
+            logger.Log(LogLevel.Trace, "UserInterface.LoadPropertiesFromPackage()");
             if (IsExistDataPackageJson)
             {
                 _dataPackage = _dataPackages.Load;
@@ -134,6 +141,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "UserInterface.GetDefaultDirectory");
                 string githubDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "GitHub");
                 if (Directory.Exists(githubDir))
                     return githubDir;
@@ -146,6 +154,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "UserInterface.IsGitDirectory");
                 return Directory.Exists(Path.Combine(pathBox.Text, ".git"));
             }
         }
@@ -154,6 +163,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "UserInterface.GetDataPackageJsonStatus");
                 if (IsExistDataPackageJson)
                     return "Exists";
                 else
@@ -165,6 +175,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "UserInterface.DataPackageJsonFilePath");
                 return Path.Combine(pathBox.Text, "DataPackage.json");
             }
         }
@@ -173,6 +184,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "UserInterface.IsExistDataPackageJson");
                 return File.Exists(DataPackageJsonFilePath);
             }
         }
@@ -181,6 +193,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "UserInterface.CsvFiles");
                 return Directory.GetFiles(pathBox.Text, "*.csv", SearchOption.TopDirectoryOnly);
             }
         }

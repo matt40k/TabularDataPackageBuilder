@@ -27,6 +27,7 @@ namespace TabularDataPackage
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Versioning.GetLastUpdated");
                 if (_lastUpdated == new DateTime())
                 {
                     if (File.Exists(DataPackageJsonFilePath))
@@ -80,6 +81,7 @@ namespace TabularDataPackage
 
         public void SetNewUpdatedDate()
         {
+            logger.Log(LogLevel.Trace, "Versioning.SetNewUpdatedDate");
             _lastUpdated = DateTime.Now;
         }
 
