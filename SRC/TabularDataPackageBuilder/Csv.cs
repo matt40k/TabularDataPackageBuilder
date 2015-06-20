@@ -116,7 +116,7 @@ namespace TabularDataPackage
                 {
                     try
                     {
-                        string name = headers[n];
+                        string name = GetCleanName(headers[n]);
                         _csvColumns.Add(new CsvColumn() { Name = name, Type = ConvertStringToType(columns[n]) });
                     }
                     catch (Exception)
@@ -237,16 +237,38 @@ namespace TabularDataPackage
                 resource.Hash = GetHash;
                 resource.Bytes = GetFileSizeInBytes;
                 List<CsvColumn> CsvColumns = GetCsvColumns;
+                DataPackageResourceSchema schema = new DataPackageResourceSchema();
                 foreach (CsvColumn column in CsvColumns)
                 {
                     logger.Log(LogLevel.Trace, "Csv.GetFileResource - " + column.Name);
                     DataPackageResourceSchemaField field = new DataPackageResourceSchemaField();
                     field.Name = column.Name;
                     field.Type = column.Type;
-                    resource.Schema.Fields.Add(field);
+                    try
+                    {
+                        schema.Fields.Add(field);
+                    }
+                    catch(NullReferenceException nullException)
+                    {
+                        logger.Error(nullException);
+                    }
+                    catch(Exception exception)
+                    {
+                        logger.Error(exception);
+                    }
                 }
+                resource.Schema = schema;
                 return resource;
             }
+        }
+
+        public string GetCleanName(string unclean)
+        {
+            if ((unclean.Substring(0, 1) == "\"") && (unclean.Substring((unclean.Length - 1), 1) == "\""))
+            {
+                return unclean.Substring(1, (unclean.Length - 2));
+            }
+            return unclean;
         }
     }
 }

@@ -68,5 +68,29 @@ namespace TabularDataPackage.Test
             File.Delete(tempFile);
             Assert.AreNotEqual(true, isUTF8);
         }
+
+        [TestMethod]
+        public void CsvGetCleanNameWithOneQuote()
+        {
+            Csv _csv = new Csv();
+            string cleaned = _csv.GetCleanName("\"Title");
+            Assert.AreEqual("\"Title", cleaned);
+        }
+
+        [TestMethod]
+        public void CsvGetCleanNameWithTwoQuote()
+        {
+            Csv _csv = new Csv();
+            string cleaned = _csv.GetCleanName("\"Title\"");
+            Assert.AreEqual("Title", cleaned);
+        }
+
+        [TestMethod]
+        public void CsvGetCleanNameWithNoQuote()
+        {
+            Csv _csv = new Csv();
+            string cleaned = _csv.GetCleanName("Title");
+            Assert.AreEqual("Title", cleaned);
+        }
     }
 }
