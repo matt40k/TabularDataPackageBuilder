@@ -45,31 +45,31 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents">
       <Component Id="ProductComponentMain" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetPath)" KeyPath="yes">
+        <File Source="$(var.TabularDataPackageBuilder.TargetPath)" KeyPath="yes">
           <Shortcut Id="StartMenuShort" Name="Tabular Data Package Builder"  Advertise='yes' 
             WorkingDirectory="INSTALLDIR" Directory="ApplicationProgramsFolder" />
         </File>
       </Component>
       <Component Id="ProductComponentMainConfig" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetPath).config" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetPath).config" />
       </Component>
       <Component Id="ProductComponentLicenseJson" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetDir)License.json" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetDir)License.json" />
       </Component>
       <Component Id="ProductComponentLicenseDll" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetDir)License.dll" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetDir)License.dll" />
       </Component>
       <Component Id="ProductComponentPackageDll" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetDir)DataPackage.dll" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetDir)DataPackage.dll" />
       </Component>
       <Component Id="ProductComponentJsonDll" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetDir)Newtonsoft.Json.dll" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetDir)Newtonsoft.Json.dll" />
       </Component>
       <Component Id="ProductComponentNLogDll" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetDir)NLog.dll" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetDir)NLog.dll" />
       </Component>
       <Component Id="ProductComponentIcon" Directory="INSTALLFOLDER">
-        <File Source="$(var.TabularDataPackage.TargetDir)data-wrench.ico" />
+        <File Source="$(var.TabularDataPackageBuilder.TargetDir)data-wrench.ico" />
       </Component>
     </ComponentGroup>
   </Fragment>

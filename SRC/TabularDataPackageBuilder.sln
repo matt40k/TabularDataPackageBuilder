@@ -7,11 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPackage", "DataPackage\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "License", "License\License.csproj", "{2E55C97E-FA92-4076-BB12-FC66947EE0B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabularDataPackage", "TabularDataPackage\TabularDataPackage.csproj", "{244D64ED-C1F0-4C1C-B745-DD3CE8479467}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabularDataPackageBuilder", "TabularDataPackageBuilder\TabularDataPackageBuilder.csproj", "{244D64ED-C1F0-4C1C-B745-DD3CE8479467}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "TabularDataPackage.Installer", "TabularDataPackage.Installer\TabularDataPackage.Installer.wixproj", "{8C30E90F-917B-4679-AB73-019601B66D4A}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "TabularDataPackageBuilder.Installer", "TabularDataPackageBuilder.Installer\TabularDataPackageBuilder.Installer.wixproj", "{8C30E90F-917B-4679-AB73-019601B66D4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabularDataPackage.Test", "TabularDataPackage.Test\TabularDataPackage.Test.csproj", "{6583A9E9-5F9B-4B3A-950B-F4DE7DE4A7BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabularDataPackageBuilder.Test", "TabularDataPackageBuilder.Test\TabularDataPackageBuilder.Test.csproj", "{6583A9E9-5F9B-4B3A-950B-F4DE7DE4A7BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

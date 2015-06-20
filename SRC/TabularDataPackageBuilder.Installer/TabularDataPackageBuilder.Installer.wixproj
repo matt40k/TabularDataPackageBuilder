@@ -26,16 +26,6 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TabularDataPackage\TabularDataPackage.csproj">
-      <Name>TabularDataPackage</Name>
-      <Project>{244d64ed-c1f0-4c1c-b745-dd3ce8479467}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Banner.bmp" />
     <Content Include="Dialog.bmp" />
     <Content Include="License.rtf" />
@@ -45,6 +35,16 @@
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
     </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TabularDataPackageBuilder\TabularDataPackageBuilder.csproj">
+      <Name>TabularDataPackageBuilder</Name>
+      <Project>{244d64ed-c1f0-4c1c-b745-dd3ce8479467}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

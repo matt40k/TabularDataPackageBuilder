@@ -57,7 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TabularDataPackage\TabularDataPackage.csproj">
+    <ProjectReference Include="..\TabularDataPackageBuilder\TabularDataPackageBuilder.csproj">
       <Project>{244d64ed-c1f0-4c1c-b745-dd3ce8479467}</Project>
       <Name>TabularDataPackage</Name>
     </ProjectReference>
