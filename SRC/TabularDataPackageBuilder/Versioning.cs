@@ -12,6 +12,10 @@ namespace TabularDataPackage
         private DateTime _lastUpdated;
         public string DataPackageJsonFilePath { get; set; }
 
+        /// <summary>
+        /// Returns the version to external classes, if the version is currently 
+        /// null, it returns 0.1
+        /// </summary>
         public Version GetVersion
         {
             get
@@ -23,6 +27,12 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Returns the Last Updated (datetime stamp) for external licenses from
+        /// the DataPackage, if it is null, then it uses the last write time of 
+        /// the DataPackage.json file. If that does not exist, it uses the current
+        /// DateTime.
+        /// </summary>
         public DateTime GetLastUpdated
         {
             get
@@ -43,6 +53,16 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Sets the version number based on the user input.
+        /// 
+        /// It does basic cleanup before parsing - it removes a 'v' prefix. 
+        /// If nothing is past, it sets it as 0.1.
+        /// 
+        /// Returns false if it fails to parse it.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
         public bool SetVersion(string version)
         {
             logger.Log(LogLevel.Trace, "Versioning.SetVersion");
@@ -64,6 +84,12 @@ namespace TabularDataPackage
             return result;
         }
 
+        /// <summary>
+        /// Sets the LastUpdated based on the user input.
+        /// Returns false if it fails to parse it.
+        /// </summary>
+        /// <param name="LastUpdated"></param>
+        /// <returns></returns>
         public bool SetLastUpdated(string LastUpdated)
         {
             logger.Log(LogLevel.Trace, "Versioning.SetLastUpdated");
@@ -79,12 +105,20 @@ namespace TabularDataPackage
             return false;
         }
 
+        /// <summary>
+        /// Updates the LastUpdated date with te current datetime
+        /// </summary>
         public void SetNewUpdatedDate()
         {
             logger.Log(LogLevel.Trace, "Versioning.SetNewUpdatedDate");
             _lastUpdated = DateTime.Now;
         }
 
+        /// <summary>
+        /// Increases the version by one minor version
+        /// 
+        /// For example, 1.0 will become 1.1
+        /// </summary>
         public void IncreaseMinorVersion()
         {
             logger.Log(LogLevel.Trace, "Versioning.IncreaseMinorVersion");
@@ -104,6 +138,12 @@ namespace TabularDataPackage
             }
         }
 
+
+        /// <summary>
+        /// Increases the version by one major version
+        /// 
+        /// For example, 1.0 will become 2.0
+        /// </summary>
         public void IncreaseMajorVersion()
         {
             logger.Log(LogLevel.Trace, "Versioning.IncreaseMajorVersion");

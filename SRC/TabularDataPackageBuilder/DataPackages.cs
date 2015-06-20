@@ -11,6 +11,13 @@ namespace TabularDataPackage
 
         private string _ProjectDirectory;
 
+        /// <summary>
+        /// GET
+        /// Returns the user defined directory that is used.
+        /// 
+        /// Set
+        /// Checks the folder exists and if it does sets it
+        /// </summary>
         public string ProjectDirectory
         {
             get
@@ -33,6 +40,10 @@ namespace TabularDataPackage
             logger.Log(LogLevel.Trace, "DataPackages.DataPackages()");
         }
 
+        /// <summary>
+        /// Returns the DataPackage filename
+        /// Always returns DataPackage.json
+        /// </summary>
         public string DataPackageFileName
         {
             get
@@ -42,6 +53,9 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Loads the DataPackage.json file
+        /// </summary>
         public DataPackage Load
         {
             get
@@ -51,6 +65,10 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Saves the DataPackage to the file system
+        /// </summary>
+        /// <param name="dataPackage"></param>
         public void Save(DataPackage dataPackage)
         {
             logger.Log(LogLevel.Trace, "DataPackages.Save");
@@ -64,6 +82,11 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Turns the json string into a DataPackage object
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         public static DataPackage Deserial(string json)
         {
             logger.Log(LogLevel.Trace, "DataPackages.Deserial");
@@ -71,6 +94,11 @@ namespace TabularDataPackage
             return dataPackage;
         }
 
+        /// <summary>
+        /// Turns the DataPackage into a json string
+        /// </summary>
+        /// <param name="dataPackage"></param>
+        /// <returns></returns>
         public static string Serial(DataPackage dataPackage)
         {
             logger.Log(LogLevel.Trace, "DataPackages.Serial");
@@ -78,6 +106,13 @@ namespace TabularDataPackage
             return json;
         }
 
+        /// <summary>
+        /// Checks if the file in the folder exist (that has been specificed) exists
+        /// in the DataPackage already
+        /// </summary>
+        /// <param name="dataPackage"></param>
+        /// <param name="physicalName"></param>
+        /// <returns></returns>
         public bool InPackage(DataPackage dataPackage, string physicalName)
         {
             logger.Log(LogLevel.Trace, "DataPackages.InPackage");
