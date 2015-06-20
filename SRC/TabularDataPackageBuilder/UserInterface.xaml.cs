@@ -39,6 +39,11 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
             logger.Log(LogLevel.Trace, "UserInterface.buttonBrowse_Click()");
@@ -52,6 +57,11 @@ namespace TabularDataPackage
             pathBox.Text = dialog.SelectedPath;
         }
 
+        /// <summary>
+        /// The save logic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             logger.Log(LogLevel.Trace, "UserInterface.buttonSave_Click()");
@@ -67,18 +77,37 @@ namespace TabularDataPackage
             _dataPackages.Save(_dataPackage);
         }
 
+        /// <summary>
+        /// Enables or disables the user fields depending if a folder has been selected
+        /// </summary>
+        /// <param name="status"></param>
         private void enableDisable(bool status)
         {
             logger.Log(LogLevel.Trace, "UserInterface.enableDisable()");
-            nameBox.IsEnabled = status;
-            titleBox.IsEnabled = status;
-            descriptionBox.IsEnabled = status;
-            licenseBox.IsEnabled = status;
-            versionBox.IsEnabled = status;
-            lastUpdatedBox.IsEnabled = status;
-            csvList.IsEnabled = status;
+            this.nameBox.IsEnabled = status;
+            this.titleBox.IsEnabled = status;
+            this.descriptionBox.IsEnabled = status;
+            this.licenseBox.IsEnabled = status;
+            this.versionBox.IsEnabled = status;
+            this.lastUpdatedBox.IsEnabled = status;
+            this.csvList.IsEnabled = status;
+            this.buttonSave.IsEnabled = status;
         }
+        
 
+        /// <summary>
+        /// Logic for when the path changes.
+        /// 
+        /// Checks the folder is a valid (ie it exists)
+        /// If it is valid it:
+        /// - enables the user fields depending if the folder is valid
+        /// - sets the folder that the DataPackages class will use, which in turn loads the datapackage.json
+        /// - sets the user fields properties to that of the datapackage.json file
+        /// 
+        /// If the folder isn't valid, it clears the user fields and disables them
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             logger.Log(LogLevel.Trace, "UserInterface.pathBox_TextChanged()");
@@ -89,7 +118,6 @@ namespace TabularDataPackage
                 dpStatus.Text = GetDataPackageJsonStatus;
                 _dataPackages.ProjectDirectory = pathBox.Text;
                 LoadPropertiesFromPackage();
-                this.buttonSave.IsEnabled = true;
             }
             else
             {
@@ -98,6 +126,9 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Clears all the user fields
+        /// </summary>
         private void clearSettings()
         {
             logger.Log(LogLevel.Trace, "UserInterface.clearSettings()");
@@ -111,6 +142,9 @@ namespace TabularDataPackage
             this.csvList.ItemsSource = null;
         }
 
+        /// <summary>
+        /// Loads the properties from the datapackage.json file
+        /// </summary>
         private void LoadPropertiesFromPackage()
         {
             logger.Log(LogLevel.Trace, "UserInterface.LoadPropertiesFromPackage()");
@@ -137,6 +171,11 @@ namespace TabularDataPackage
                 clearSettings();
         }
 
+        /// <summary>
+        /// Returns the default starting folder for the browse options, default is the GitHub folder 
+        /// within My Documents, if this doesn't exist, we don't default. Stranges things can happen 
+        /// if we default to My Documents if Folder Redirection is play.
+        /// </summary>
         public string GetDefaultDirectory
         {
             get
@@ -150,6 +189,11 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Git directories will have a .git folder at the root of the repository. However,
+        /// this doesn't take into account us looking at a subfolder of a repository, after all
+        /// where would it end if we did?
+        /// </summary>
         public bool IsGitDirectory
         {
             get
@@ -159,6 +203,10 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Checks to see if a DataPackage.json already exists in the folder...
+        /// and returns a friendly user instruction.
+        /// </summary>
         public string GetDataPackageJsonStatus
         {
             get
@@ -171,6 +219,10 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Returns the full file path for the DataPackage.json by combining DataPackage.json to
+        /// the user defined folder
+        /// </summary>
         public string DataPackageJsonFilePath
         {
             get
@@ -180,6 +232,9 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Checks to see if a DataPackage.json already exists in the folder
+        /// </summary>
         public bool IsExistDataPackageJson
         {
             get
@@ -189,6 +244,9 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Returns an array of the CSV files within the user defined folder
+        /// </summary>
         public string[] CsvFiles
         {
             get
