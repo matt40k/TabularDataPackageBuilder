@@ -83,6 +83,9 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Sets the CSV full file path to the CSV class
+        /// </summary>
         public string Load
         {
             set
@@ -92,6 +95,11 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Returns a list of CSV column by reading the first two lines.
+        /// The first license is the title of the column name and the second line is used
+        /// to determine the column type - using the DataPackage type
+        /// </summary>
         public List<CsvColumn> GetCsvColumns
         {
             get
@@ -129,6 +137,11 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Determins the DataPackage type of a (string) data value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string ConvertStringToType(string value)
         {
             logger.Log(LogLevel.Trace, "Csv.ConvertStringToType()");
@@ -209,6 +222,10 @@ namespace TabularDataPackage
             return "string";
         }
 
+        /// <summary>
+        /// Returns the File name (include extension) from the full (user defined)
+        /// file path
+        /// </summary>
         public string GetFileName
         {
             get
@@ -218,6 +235,10 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Gets the file hash (prefix with hashing algorithms if MD5 isn't used)
+        /// As per the DataPackage spec - http://dataprotocols.org/data-packages/
+        /// </summary>
         public string GetHash
         {
             get
@@ -227,6 +248,10 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Returns a built resource for the DataPackage based on the user defined
+        /// csv file.
+        /// </summary>
         public DataPackageResource GetFileResource
         {
             get
@@ -252,6 +277,11 @@ namespace TabularDataPackage
             }
         }
 
+        /// <summary>
+        /// Cleans the name (title) of the column as it could be encased in "
+        /// </summary>
+        /// <param name="unclean"></param>
+        /// <returns></returns>
         public string GetCleanName(string unclean)
         {
             if ((unclean.Substring(0, 1) == "\"") && (unclean.Substring((unclean.Length - 1), 1) == "\""))
