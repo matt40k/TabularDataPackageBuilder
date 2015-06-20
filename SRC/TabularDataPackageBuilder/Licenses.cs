@@ -84,5 +84,22 @@ namespace TabularDataPackage
             }
             return null;
         }
+
+        /// <summary>
+        /// Looks up the license Id from the License list using the user
+        /// defined license Name\Title
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public string GetIdFromName(string name)
+        {
+            logger.Log(LogLevel.Trace, "LicenseJson.GetNameFromId");
+            foreach (var license in _licenses)
+            {
+                if (license.License.Title == name)
+                    return license.License.Id;
+            }
+            return null;
+        }
     }
 }

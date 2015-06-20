@@ -19,7 +19,7 @@ namespace TabularDataPackage
         private readonly FolderBrowserDialog openFileDialog;
         private DataPackages _dataPackages;
         private DataPackage _dataPackage;
-        private LicenseJson licenses;
+        private LicenseJson _licenses;
         private Versioning _versioning;
         private List<CsvList> _csvList = new List<CsvList>();
 
@@ -29,18 +29,23 @@ namespace TabularDataPackage
             InitializeComponent();
 
             openFileDialog = new FolderBrowserDialog();
-            licenses = new LicenseJson();
+            _licenses = new LicenseJson();
             _dataPackages = new DataPackages();
             _versioning = new Versioning();
 
-            foreach (var license in licenses.GetLicenses)
+            foreach (var _license in _licenses.GetLicenses)
             {
-                this.licenseBox.Items.Add(license.License.Title);
+                this.licenseBox.Items.Add(_license.License.Title);
             }
         }
 
         /// <summary>
+        /// Opens a browse menu so the user can select the project folder
+        /// This folder will house the DataPackage.json file (or will once they hit save)
+        /// It most contain the CSV files that will be used
         /// 
+        /// Defaults the starting position to the GitHub directory within 
+        /// My Documents, if it exists, otherwise it doesn't default it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -59,21 +64,35 @@ namespace TabularDataPackage
 
         /// <summary>
         /// The save logic
+        /// 
+        /// It increases the version number
+        /// 
+        /// Creates a DataPackage resource for each CSV file in the directory that
+        /// is selected for inclusion
+        /// 
+        /// Writes the DataPackage object out to the file system as DataPackage.json
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             logger.Log(LogLevel.Trace, "UserInterface.buttonSave_Click()");
+
             _versioning.IncreaseMinorVersion();
             //_versioning.IncreaseMajorVersion();
             _versioning.SetNewUpdatedDate();
-            foreach (CsvList csvFile in _csvList)
+            // TODO deal with the user input changing the last updated and the version no
+
+            // Clear all the csv resources from the DataPackage
+            _dataPackage.Resources.Clear();
+            // Add any selected CSV resources to the DataPackage
+            foreach (CsvList csvFile in _csvList.FindAll(x => x.Selected == true))      
             {
                 Csv _csv = new Csv();
                 _csv.Load = Path.Combine(pathBox.Text,(csvFile.Filename + ".csv"));
                 _dataPackage.Resources.Add(_csv.GetFileResource);
             }
+            SetPropertiesToPackage();
             _dataPackages.Save(_dataPackage);
         }
 
@@ -154,7 +173,7 @@ namespace TabularDataPackage
                 this.nameBox.Text = _dataPackage.Name;
                 this.titleBox.Text = _dataPackage.Title;
                 this.descriptionBox.Text = _dataPackage.Description;
-                this.licenseBox.SelectedValue = licenses.GetNameFromId(_dataPackage.License);
+                this.licenseBox.SelectedValue = _licenses.GetNameFromId(_dataPackage.License);
                 _versioning.DataPackageJsonFilePath = DataPackageJsonFilePath;
                 _versioning.SetVersion(_dataPackage.Version);
                 _versioning.SetLastUpdated(_dataPackage.LastUpdated);
@@ -169,6 +188,36 @@ namespace TabularDataPackage
             }
             else
                 clearSettings();
+        }
+
+        /// <summary>
+        /// Set the user defined fields to the DataPackage object
+        /// </summary>
+        private void SetPropertiesToPackage()
+        {
+            logger.Log(LogLevel.Trace, "UserInterface.SetPropertiesToPackage()");
+            if (!string.IsNullOrEmpty(this.nameBox.Text))
+                _dataPackage.Name = this.nameBox.Text;
+            if (!string.IsNullOrEmpty(this.titleBox.Text))
+                _dataPackage.Title = this.titleBox.Text;
+            if (!string.IsNullOrEmpty(this.descriptionBox.Text))
+                _dataPackage.Description = this.descriptionBox.Text;
+
+            string licenseId = null;
+            try
+            {
+                string licenseName = (string)this.licenseBox.SelectedValue;
+                licenseId = _licenses.GetIdFromName(licenseName);
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception);
+            }
+
+            if (!string.IsNullOrEmpty(licenseId))
+                _dataPackage.License = licenseId;
+            _dataPackage.Version = _versioning.GetVersion.ToString();
+            _dataPackage.LastUpdated = _versioning.GetLastUpdated.ToString();
         }
 
         /// <summary>
@@ -245,7 +294,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Returns an array of the CSV files within the user defined folder
+        /// Returns a string array of the CSV files within the user defined folder
         /// </summary>
         public string[] CsvFiles
         {
