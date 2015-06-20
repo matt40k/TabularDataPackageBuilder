@@ -51,11 +51,31 @@ namespace TabularDataPackage
             }
         }
 
+        public void Save(DataPackage dataPackage)
+        {
+            logger.Log(LogLevel.Trace, "DataPackages.Save");
+            try
+            {
+                File.WriteAllText((Path.Combine(ProjectDirectory, DataPackageFileName)), Serial(dataPackage));
+            }
+            catch (IOException ioException)
+            {
+                logger.Error(ioException);
+            }
+        }
+
         public static DataPackage Deserial(string json)
         {
             logger.Log(LogLevel.Trace, "DataPackages.Deserial");
             var dataPackage = JsonConvert.DeserializeObject<DataPackage>(json);
             return dataPackage;
+        }
+
+        public static string Serial(DataPackage dataPackage)
+        {
+            logger.Log(LogLevel.Trace, "DataPackages.Serial");
+            var json = JsonConvert.SerializeObject(dataPackage);
+            return json;
         }
 
         public bool InPackage(DataPackage dataPackage, string physicalName)

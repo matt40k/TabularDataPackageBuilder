@@ -58,13 +58,13 @@ namespace TabularDataPackage
             _versioning.IncreaseMinorVersion();
             //_versioning.IncreaseMajorVersion();
             _versioning.SetNewUpdatedDate();
-
             foreach (CsvList csvFile in _csvList)
             {
                 Csv _csv = new Csv();
                 _csv.Load = Path.Combine(pathBox.Text,(csvFile.Filename + ".csv"));
                 _dataPackage.Resources.Add(_csv.GetFileResource);
             }
+            _dataPackages.Save(_dataPackage);
         }
 
         private void enableDisable(bool status)

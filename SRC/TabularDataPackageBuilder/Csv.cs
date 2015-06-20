@@ -237,27 +237,17 @@ namespace TabularDataPackage
                 resource.Hash = GetHash;
                 resource.Bytes = GetFileSizeInBytes;
                 List<CsvColumn> CsvColumns = GetCsvColumns;
-                DataPackageResourceSchema schema = new DataPackageResourceSchema();
+                resource.Schema = new DataPackageResourceSchema();
+                List<DataPackageResourceSchemaField> fields = new List<DataPackageResourceSchemaField>();
                 foreach (CsvColumn column in CsvColumns)
                 {
                     logger.Log(LogLevel.Trace, "Csv.GetFileResource - " + column.Name);
                     DataPackageResourceSchemaField field = new DataPackageResourceSchemaField();
                     field.Name = column.Name;
                     field.Type = column.Type;
-                    try
-                    {
-                        schema.Fields.Add(field);
-                    }
-                    catch(NullReferenceException nullException)
-                    {
-                        logger.Error(nullException);
-                    }
-                    catch(Exception exception)
-                    {
-                        logger.Error(exception);
-                    }
+                    fields.Add(field);
                 }
-                resource.Schema = schema;
+                resource.Schema.Fields = fields;
                 return resource;
             }
         }
