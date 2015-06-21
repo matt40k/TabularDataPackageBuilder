@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="Tabular Data Package Builder" Language="1033" Version="1.0.0.0" Manufacturer="Matt Smith" UpgradeCode="0940725d-809b-4111-b115-d4c121031abb">
+  <Product Id="*" Name="Tabular Data Package Builder" Language="1033" Version="$(var.VERSION)" Manufacturer="Matt Smith" UpgradeCode="0940725d-809b-4111-b115-d4c121031abb">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

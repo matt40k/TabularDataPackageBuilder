@@ -19,10 +19,10 @@ before_build:
         Write-Host $Env:test_var
 
         nuget restore SRC\TabularDataPackageBuilder.sln
-
+        secure-file
     }
 build:
   verbosity: minimal
 after_build:
-- ps: "# Only runs on the AppVeyor\nif ($Env:APPVEYOR)\n{\n    # The version number for this release\n    $versionNumber = $Env:APPVEYOR_BUILD_VERSION\n   \n    # The Commit SHA for corresponding to this release\n    $commitId = $Env:APPVEYOR_REPO_COMMIT\n\n    # The notes to accompany this release, uses the commit message in this case\n    $releaseNotes = $Env:APPVEYOR_REPO_COMMIT_MESSAGE\n\n}"
+- ps: "# Only runs on the AppVeyor\nif ($Env:APPVEYOR)\n{\n    # The version number for this release\n    $versionNumber = $Env:APPVEYOR_BUILD_VERSION\n   \n    # The Commit SHA for corresponding to this release\n    $commitId = $Env:APPVEYOR_REPO_COMMIT\n\n    # The notes to accompany this release, uses the commit message in this case\n    $releaseNotes = $Env:APPVEYOR_REPO_COMMIT_MESSAGE\n}\n}"
 deploy: off
