@@ -1,0 +1,28 @@
+version: 1.0.{build}.{branch}
+environment:
+  test_var:
+    secure: 6E3xt0qAoiEm5YC53FKdLw==
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- ps: >-
+    # Only runs on the AppVeyor
+
+    if ($Env:APPVEYOR)
+
+    {
+        Write-Host "Booyah!"
+        Write-Host $Env:test_var
+
+        nuget restore SRC\TabularDataPackageBuilder.sln
+
+    }
+build:
+  verbosity: minimal
+after_build:
+- ps: "# Only runs on the AppVeyor\nif ($Env:APPVEYOR)\n{\n    # The version number for this release\n    $versionNumber = $Env:APPVEYOR_BUILD_VERSION\n   \n    # The Commit SHA for corresponding to this release\n    $commitId = $Env:APPVEYOR_REPO_COMMIT\n\n    # The notes to accompany this release, uses the commit message in this case\n    $releaseNotes = $Env:APPVEYOR_REPO_COMMIT_MESSAGE\n\n}"
+deploy: off
