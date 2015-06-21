@@ -19,7 +19,6 @@ before_build:
         Write-Host $Env:test_var
 
         nuget restore SRC\TabularDataPackageBuilder.sln
-        secure-file
     }
 build:
   verbosity: minimal
