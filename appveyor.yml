@@ -1,4 +1,4 @@
-version: 1.0.{build}.{branch}
+version: 1.0.{build}
 environment:
   test_var:
     secure: 6E3xt0qAoiEm5YC53FKdLw==
