@@ -74,7 +74,10 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="GetLicenseJson.ps1" />
     <None Include="packages.config" />
+    <None Include="PostBuild.ps1" />
+    <None Include="PreBuild.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataPackage\DataPackage.csproj">
@@ -101,6 +104,12 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell.exe -file "$(ProjectDir)\PreBuild.ps1"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>powershell.exe -file "$(ProjectDir)\PostBuild.ps1"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
