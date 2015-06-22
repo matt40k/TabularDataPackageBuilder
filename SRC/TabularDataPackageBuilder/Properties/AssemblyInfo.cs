@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TabularDataPackage")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Tabular Data Package Builder")]
+[assembly: AssemblyDescription("Creates a Data Package from CSV files")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TabularDataPackage")]
+[assembly: AssemblyProduct("Tabular Data Package Builder")]
 [assembly: AssemblyCopyright("Copyright © Matt Smith 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
