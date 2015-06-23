@@ -9,31 +9,32 @@ public class DataPackageResourceSchemaField
     public string Name { get; set; }
 
     /// <summary>
-    /// The type of the field (string, number etc) - see below for more detail. If type is not provided a consumer should assume a type of "string".
+    ///     The type of the field (string, number etc) - see below for more detail. If type is not provided a consumer should
+    ///     assume a type of "string".
     /// </summary>
     [DataMember]
     public string Type { get; set; }
 
     /// <summary>
-    /// A nicer human readable label or title for the field
+    ///     A nicer human readable label or title for the field
     /// </summary>
     [DataMember]
     public string Title { get; set; }
 
     /// <summary>
-    /// A description for this field e.g. "The recipient of the funds"
+    ///     A description for this field e.g. "The recipient of the funds"
     /// </summary>
     [DataMember]
     public string Description { get; set; }
 
     /// <summary>
-    /// A description of the format e.g. “DD.MM.YYYY” for a date. See below for more detail.
+    ///     A description of the format e.g. “DD.MM.YYYY” for a date. See below for more detail.
     /// </summary>
     [DataMember]
     public string Format { get; set; }
 
     /// <summary>
-    /// A constraints descriptor that can be used by consumers to validate field values
+    ///     A constraints descriptor that can be used by consumers to validate field values
     /// </summary>
     [DataMember]
     public DataPackageResourceSchemaFieldConstraints Constraints { get; set; }
@@ -81,19 +82,30 @@ public class DataPackageResourceSchemaField
     {
         get
         {
-            if (string.IsNullOrEmpty(Type)) { return DbType.String; }
+            if (string.IsNullOrEmpty(Type))
+            {
+                return DbType.String;
+            }
 
             var cleanType = Type.Trim().ToLowerInvariant();
             switch (cleanType)
             {
-                case "boolean": return DbType.Boolean;
-                case "integer": return DbType.Int32;
-                case "number": return DbType.Decimal;
-                case "string": return DbType.String;
-                case "datetime": return DbType.DateTime2;
-                case "date": return DbType.Date;
-                case "time": return DbType.Time;
-                default: throw new NotSupportedException("The Type '" + Type + "' is not supported presently.");
+                case "boolean":
+                    return DbType.Boolean;
+                case "integer":
+                    return DbType.Int32;
+                case "number":
+                    return DbType.Decimal;
+                case "string":
+                    return DbType.String;
+                case "datetime":
+                    return DbType.DateTime2;
+                case "date":
+                    return DbType.Date;
+                case "time":
+                    return DbType.Time;
+                default:
+                    throw new NotSupportedException("The Type '" + Type + "' is not supported presently.");
             }
         }
         set
