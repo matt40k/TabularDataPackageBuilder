@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  
-<?ifndef $(env.APPVEYOR)?> 
-  <?define APPVER="1.0.0.0"?> 
-<?else?>
-  <?define APPVER=$(env.APPVEYOR_BUILD_VERSION)?> 
-<?endif ?>
-  
-  <Product Id="*" Name="Tabular Data Package Builder" Language="1033" 
+
+  <?ifndef $(env.APPVEYOR)?>
+  <?define APPVER="1.0.0.0"?>
+  <?else?>
+  <?define APPVER=$(env.APPVEYOR_BUILD_VERSION)?>
+  <?endif ?>
+
+  <Product Id="*" Name="Tabular Data Package Builder" Language="1033"
            Version="$(var.APPVER)"
-    Manufacturer="Matt Smith" UpgradeCode="0940725d-809b-4111-b115-d4c121031abb">
+           Manufacturer="Matt Smith" UpgradeCode="0940725d-809b-4111-b115-d4c121031abb">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -17,10 +18,10 @@
 
     <Feature Id="MainFeature" Title="Tabular Data Package Builder" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
-      <ComponentRef Id="ProductStartMenu"/>
+      <ComponentRef Id="ProductStartMenu" />
     </Feature>
 
-    <Icon Id="icon.ico" SourceFile="..\..\Logo\data-wrench.ico"/>
+    <Icon Id="icon.ico" SourceFile="..\..\Logo\data-wrench.ico" />
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
@@ -43,10 +44,11 @@
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="Tabular Data Package Builder">
           <Component Id="ProductStartMenu">
-          <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
-          <RegistryValue Root="HKCU" Key="Software\Microsoft\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+            <RegistryValue Root="HKCU" Key="Software\Microsoft\[ProductName]" Name="installed" Type="integer" Value="1"
+                           KeyPath="yes" />
           </Component>
-            </Directory>
+        </Directory>
       </Directory>
     </Directory>
   </Fragment>
@@ -55,8 +57,8 @@
     <ComponentGroup Id="ProductComponents">
       <Component Id="ProductComponentMain" Directory="INSTALLFOLDER">
         <File Source="$(var.TabularDataPackageBuilder.TargetPath)" KeyPath="yes">
-          <Shortcut Id="StartMenuShort" Name="Tabular Data Package Builder"  Advertise='yes' 
-            WorkingDirectory="INSTALLDIR" Directory="ApplicationProgramsFolder" />
+          <Shortcut Id="StartMenuShort" Name="Tabular Data Package Builder" Advertise='yes'
+                    WorkingDirectory="INSTALLDIR" Directory="ApplicationProgramsFolder" />
         </File>
       </Component>
       <Component Id="ProductComponentMainConfig" Directory="INSTALLFOLDER">
