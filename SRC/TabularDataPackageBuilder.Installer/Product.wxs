@@ -57,7 +57,8 @@
     <ComponentGroup Id="ProductComponents">
       <Component Id="ProductComponentMain" Directory="INSTALLFOLDER">
         <File Source="$(var.TabularDataPackageBuilder.TargetPath)" KeyPath="yes">
-          <Shortcut Id="StartMenuShort" Name="Tabular Data Package Builder" Advertise="yes" Icon="icon.ico" WorkingDirectory="INSTALLFOLDER" Directory="ApplicationProgramsFolder" />
+          <Shortcut Id="StartMenuShort" Name="Tabular Data Package Builder" Advertise="yes" Icon="icon.ico"
+                    WorkingDirectory="INSTALLFOLDER" Directory="ApplicationProgramsFolder" />
         </File>
       </Component>
       <Component Id="ProductComponentMainConfig" Directory="INSTALLFOLDER">
