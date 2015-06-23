@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using NLog;
 
 namespace TabularDataPackage
@@ -9,17 +9,17 @@ namespace TabularDataPackage
     public class LicenseJson
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private List<Licenses> _licenses;
+        private readonly List<Licenses> _licenses;
 
         public LicenseJson()
         {
             logger.Log(LogLevel.Trace, "LicenseJson.LicenseJson()");
             _licenses = Deserial(ReadLicenseFile);
         }
-        
+
         /// <summary>
-        /// Returns the License file name
-        /// Always returns License.json
+        ///     Returns the License file name
+        ///     Always returns License.json
         /// </summary>
         public string LicenseListFileName
         {
@@ -31,7 +31,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Reads the license.json file from the file system
+        ///     Reads the license.json file from the file system
         /// </summary>
         public string ReadLicenseFile
         {
@@ -40,24 +40,12 @@ namespace TabularDataPackage
                 logger.Log(LogLevel.Trace, "LicenseJson.ReadLicenseFile");
                 if (File.Exists(LicenseListFileName))
                     return File.ReadAllText(LicenseListFileName);
-                else
-                    throw new Exception("License.json doesn't exist");
+                throw new Exception("License.json doesn't exist");
             }
         }
 
         /// <summary>
-        /// Turns the license json string into a List of Licenses
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static List<Licenses> Deserial(string json)
-        {
-            logger.Log(LogLevel.Trace, "LicenseJson.Deserial");
-            return JsonConvert.DeserializeObject<List<Licenses>>(json); ;
-        }
-
-        /// <summary>
-        /// Returns the License list to external classes
+        ///     Returns the License list to external classes
         /// </summary>
         public List<Licenses> GetLicenses
         {
@@ -69,8 +57,20 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Looks up the license Title from the License list using the user
-        /// defined license Id
+        ///     Turns the license json string into a List of Licenses
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static List<Licenses> Deserial(string json)
+        {
+            logger.Log(LogLevel.Trace, "LicenseJson.Deserial");
+            return JsonConvert.DeserializeObject<List<Licenses>>(json);
+            ;
+        }
+
+        /// <summary>
+        ///     Looks up the license Title from the License list using the user
+        ///     defined license Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -86,8 +86,8 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Looks up the license Id from the License list using the user
-        /// defined license Name\Title
+        ///     Looks up the license Id from the License list using the user
+        ///     defined license Name\Title
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>

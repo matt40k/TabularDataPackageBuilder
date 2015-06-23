@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using NLog;
 
@@ -8,15 +7,18 @@ namespace TabularDataPackage
     public class DataPackages
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         private string _ProjectDirectory;
 
+        public DataPackages()
+        {
+            logger.Log(LogLevel.Trace, "DataPackages.DataPackages()");
+        }
+
         /// <summary>
-        /// GET
-        /// Returns the user defined directory that is used.
-        /// 
-        /// Set
-        /// Checks the folder exists and if it does sets it
+        ///     GET
+        ///     Returns the user defined directory that is used.
+        ///     Set
+        ///     Checks the folder exists and if it does sets it
         /// </summary>
         public string ProjectDirectory
         {
@@ -35,14 +37,9 @@ namespace TabularDataPackage
             }
         }
 
-        public DataPackages()
-        {
-            logger.Log(LogLevel.Trace, "DataPackages.DataPackages()");
-        }
-
         /// <summary>
-        /// Returns the DataPackage filename
-        /// Always returns DataPackage.json
+        ///     Returns the DataPackage filename
+        ///     Always returns DataPackage.json
         /// </summary>
         public string DataPackageFileName
         {
@@ -54,7 +51,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Loads the DataPackage.json file
+        ///     Loads the DataPackage.json file
         /// </summary>
         public DataPackage Load
         {
@@ -66,7 +63,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Saves the DataPackage to the file system
+        ///     Saves the DataPackage to the file system
         /// </summary>
         /// <param name="dataPackage"></param>
         public void Save(DataPackage dataPackage)
@@ -83,7 +80,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Turns the json string into a DataPackage object
+        ///     Turns the json string into a DataPackage object
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
@@ -95,7 +92,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Turns the DataPackage into a json string
+        ///     Turns the DataPackage into a json string
         /// </summary>
         /// <param name="dataPackage"></param>
         /// <returns></returns>
@@ -107,8 +104,8 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Checks if the file in the folder exist (that has been specificed) exists
-        /// in the DataPackage already
+        ///     Checks if the file in the folder exist (that has been specificed) exists
+        ///     in the DataPackage already
         /// </summary>
         /// <param name="dataPackage"></param>
         /// <param name="physicalName"></param>
@@ -116,7 +113,7 @@ namespace TabularDataPackage
         public bool InPackage(DataPackage dataPackage, string physicalName)
         {
             logger.Log(LogLevel.Trace, "DataPackages.InPackage");
-            foreach (DataPackageResource resource in dataPackage.Resources)
+            foreach (var resource in dataPackage.Resources)
             {
                 if (Path.GetFileName(physicalName) == resource.Path)
                     return true;

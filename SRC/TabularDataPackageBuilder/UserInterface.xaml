@@ -1,8 +1,8 @@
 ﻿<Window x:Class="TabularDataPackage.UserInterface"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         MaxHeight="600" MaxWidth="700" MinHeight="600" MinWidth="700" Icon="data-wrench.ico"
         Title="Tabular Data Package Builder">
     <Grid>
@@ -25,49 +25,66 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
-                
+
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Label Content="Select Directory" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" />
-            <TextBox Height="23" HorizontalAlignment="Right" Name="pathBox" VerticalAlignment="Center" Width="300" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" TextChanged="pathBox_TextChanged" Margin="0,0,10,0"/>
+
+            <Label Content="Select Directory" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0"
+                   Grid.Row="0" />
+            <TextBox Height="23" HorizontalAlignment="Right" Name="pathBox" VerticalAlignment="Center" Width="300"
+                     Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" TextChanged="pathBox_TextChanged"
+                     Margin="0,0,10,0" />
 
             <Button Content="Browse" Height="30" HorizontalAlignment="Left" Name="buttonBrowse"
                     VerticalAlignment="Center" Width="75" Grid.Column="2" Grid.Row="0" Click="buttonBrowse_Click" />
 
-            <CheckBox Name="IsGitEnabled" Content="Git Enabled?" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" IsHitTestVisible="False" />
+            <CheckBox Name="IsGitEnabled" Content="Git Enabled?" HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Grid.Column="0" Grid.Row="1" IsHitTestVisible="False" />
 
-            <TextBox Name="dpStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Height="19" Width="50" Grid.Column="0" Grid.Row="2" TextAlignment="Center" />
+            <TextBox Name="dpStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Height="19" Width="50"
+                     Grid.Column="0" Grid.Row="2" TextAlignment="Center" />
 
             <Label Content="Name" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="nameBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False"/>
+            <TextBox Name="nameBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+                     Height="23" Width="200" IsEnabled="False" />
 
             <Label Content="Title" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="titleBox" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" IsEnabled="False"/>
-            
-            <Label Content="Description" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="descriptionBox" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="75" Width="275"
+            <TextBox Name="titleBox" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"
+                     Height="23" Width="275" IsEnabled="False" />
+
+            <Label Content="Description" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left"
+                   VerticalAlignment="Center" />
+            <TextBox Name="descriptionBox" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left"
+                     VerticalAlignment="Center" Height="75" Width="275"
                      TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsEnabled="False" />
-            
+
             <Label Content="License" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <ComboBox Name="licenseBox" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="275" IsEnabled="False"/>
-            
+            <ComboBox Name="licenseBox" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left"
+                      VerticalAlignment="Center" Height="23" Width="275" IsEnabled="False" />
+
             <Label Content="Version" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="versionBox" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False" IsReadOnly="True"/>
-            
-            <Label Content="Last Updated" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBox Name="lastUpdatedBox" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False" IsReadOnly="True"/>
-            <DataGrid Name="csvList" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="6" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      MinHeight="200" MinWidth="225" ItemsSource="{Binding Path=.}" IsEnabled="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <TextBox Name="versionBox" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left"
+                     VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False" IsReadOnly="True" />
+
+            <Label Content="Last Updated" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left"
+                   VerticalAlignment="Center" />
+            <TextBox Name="lastUpdatedBox" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left"
+                     VerticalAlignment="Center" Height="23" Width="200" IsEnabled="False" IsReadOnly="True" />
+            <DataGrid Name="csvList" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="6"
+                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                      MinHeight="200" MinWidth="225" ItemsSource="{Binding Path=.}" IsEnabled="False"
+                      CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Selected" Width="30" Binding="{Binding Selected,Mode=TwoWay}"/>
-                    <DataGridTextColumn Header="Filename" Width="200" Binding="{Binding Filename}" IsReadOnly="True"/>
-                    <DataGridCheckBoxColumn Header="InPackage" Width="30" Binding="{Binding InPackage}" IsReadOnly="True"/>
+                    <DataGridCheckBoxColumn Header="Selected" Width="30" Binding="{Binding Selected,Mode=TwoWay}" />
+                    <DataGridTextColumn Header="Filename" Width="200" Binding="{Binding Filename}" IsReadOnly="True" />
+                    <DataGridCheckBoxColumn Header="InPackage" Width="30" Binding="{Binding InPackage}"
+                                            IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button Name="buttonSave" Content="Save" IsEnabled="False" Click="buttonSave_Click" Grid.Column="3" Grid.Row="8" 
-                    Height="30" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Name="buttonSave" Content="Save" IsEnabled="False" Click="buttonSave_Click" Grid.Column="3"
+                    Grid.Row="8"
+                    Height="30" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
 
     </Grid>

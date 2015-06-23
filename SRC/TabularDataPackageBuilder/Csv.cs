@@ -16,7 +16,7 @@ namespace TabularDataPackage
         private string filePath;
 
         /// <summary>
-        /// Returns the SHA1 checksum for the defined file
+        ///     Returns the SHA1 checksum for the defined file
         /// </summary>
         /// <param name="file">file path</param>
         /// <returns>SHA1</returns>
@@ -26,14 +26,14 @@ namespace TabularDataPackage
             {
                 logger.Log(LogLevel.Trace, "Csv.GetSHA1Hash");
                 StringBuilder formatted;
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                using (BufferedStream bs = new BufferedStream(fs))
+                using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (var bs = new BufferedStream(fs))
                 {
-                    using (SHA1Managed sha1 = new SHA1Managed())
+                    using (var sha1 = new SHA1Managed())
                     {
-                        byte[] hash = sha1.ComputeHash(bs);
-                        formatted = new StringBuilder(2 * hash.Length);
-                        foreach (byte b in hash)
+                        var hash = sha1.ComputeHash(bs);
+                        formatted = new StringBuilder(2*hash.Length);
+                        foreach (var b in hash)
                         {
                             formatted.AppendFormat("{0:X2}", b);
                         }
@@ -44,8 +44,8 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Determines a text file's encoding by analyzing its byte order mark (BOM).
-        /// Defaults to ASCII when detection of the text file's endianness fails.
+        ///     Determines a text file's encoding by analyzing its byte order mark (BOM).
+        ///     Defaults to ASCII when detection of the text file's endianness fails.
         /// </summary>
         /// <param name="filePath">The text file to analyze.</param>
         /// <returns>The detected encoding.</returns>
@@ -69,7 +69,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Returns the file size (bytes)
+        ///     Returns the file size (bytes)
         /// </summary>
         /// <param name="filePath">File path</param>
         /// <returns>bytes</returns>
@@ -78,13 +78,13 @@ namespace TabularDataPackage
             get
             {
                 logger.Log(LogLevel.Trace, "Csv.GetFileSizeInBytes");
-                FileInfo _fileInfo = new FileInfo(filePath);
+                var _fileInfo = new FileInfo(filePath);
                 return _fileInfo.Length;
             }
         }
 
         /// <summary>
-        /// Sets the CSV full file path to the CSV class
+        ///     Sets the CSV full file path to the CSV class
         /// </summary>
         public string Load
         {
@@ -96,40 +96,39 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Returns a list of CSV column by reading the first two lines.
-        /// The first license is the title of the column name and the second line is used
-        /// to determine the column type - using the DataPackage type
+        ///     Returns a list of CSV column by reading the first two lines.
+        ///     The first license is the title of the column name and the second line is used
+        ///     to determine the column type - using the DataPackage type
         /// </summary>
         public List<CsvColumn> GetCsvColumns
         {
             get
             {
                 logger.Log(LogLevel.Trace, "Csv.GetCsvColumns");
-                List<CsvColumn> _csvColumns = new List<CsvColumn>();
+                var _csvColumns = new List<CsvColumn>();
                 string header;
                 string body;
 
-                using (StreamReader reader = new StreamReader(filePath))
+                using (var reader = new StreamReader(filePath))
                 {
                     header = reader.ReadLine();
                     body = reader.ReadLine();
                 }
 
-                string[] headers = header.Split(',');
-                string[] columns = body.Split(',');
+                var headers = header.Split(',');
+                var columns = body.Split(',');
 
-                int cnt = headers.Length;
-                int n = 0;
+                var cnt = headers.Length;
+                var n = 0;
                 while (n < cnt)
                 {
                     try
                     {
-                        string name = GetCleanName(headers[n]);
-                        _csvColumns.Add(new CsvColumn() { Name = name, Type = ConvertStringToType(columns[n]) });
+                        var name = GetCleanName(headers[n]);
+                        _csvColumns.Add(new CsvColumn {Name = name, Type = ConvertStringToType(columns[n])});
                     }
                     catch (Exception)
                     {
-
                     }
                     n++;
                 }
@@ -138,7 +137,62 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Determins the DataPackage type of a (string) data value
+        ///     Returns the File name (include extension) from the full (user defined)
+        ///     file path
+        /// </summary>
+        public string GetFileName
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Csv.GetFileName");
+                return Path.GetFileName(filePath);
+            }
+        }
+
+        /// <summary>
+        ///     Gets the file hash (prefix with hashing algorithms if MD5 isn't used)
+        ///     As per the DataPackage spec - http://dataprotocols.org/data-packages/
+        /// </summary>
+        public string GetHash
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Csv.GetHash");
+                return "sha1:" + GetSHA1Hash;
+            }
+        }
+
+        /// <summary>
+        ///     Returns a built resource for the DataPackage based on the user defined
+        ///     csv file.
+        /// </summary>
+        public DataPackageResource GetFileResource
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Csv.GetFileResource");
+                var resource = new DataPackageResource();
+                resource.Path = GetFileName;
+                resource.Hash = GetHash;
+                resource.Bytes = GetFileSizeInBytes;
+                var CsvColumns = GetCsvColumns;
+                resource.Schema = new DataPackageResourceSchema();
+                var fields = new List<DataPackageResourceSchemaField>();
+                foreach (var column in CsvColumns)
+                {
+                    logger.Log(LogLevel.Trace, "Csv.GetFileResource - " + column.Name);
+                    var field = new DataPackageResourceSchemaField();
+                    field.Name = column.Name;
+                    field.Type = column.Type;
+                    fields.Add(field);
+                }
+                resource.Schema.Fields = fields;
+                return resource;
+            }
+        }
+
+        /// <summary>
+        ///     Determins the DataPackage type of a (string) data value
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -154,7 +208,7 @@ namespace TabularDataPackage
             // First check the whole number types, because floating point types will always parse whole numbers
             // Start with the smallest types
             byte byteResult;
-            if (Byte.TryParse(value, out byteResult))
+            if (byte.TryParse(value, out byteResult))
             {
                 return "integer";
             }
@@ -223,62 +277,7 @@ namespace TabularDataPackage
         }
 
         /// <summary>
-        /// Returns the File name (include extension) from the full (user defined)
-        /// file path
-        /// </summary>
-        public string GetFileName
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Csv.GetFileName");
-                return Path.GetFileName(filePath);
-            }
-        }
-
-        /// <summary>
-        /// Gets the file hash (prefix with hashing algorithms if MD5 isn't used)
-        /// As per the DataPackage spec - http://dataprotocols.org/data-packages/
-        /// </summary>
-        public string GetHash
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Csv.GetHash");
-                return "sha1:" + GetSHA1Hash;
-            }
-        }
-
-        /// <summary>
-        /// Returns a built resource for the DataPackage based on the user defined
-        /// csv file.
-        /// </summary>
-        public DataPackageResource GetFileResource
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Csv.GetFileResource");
-                DataPackageResource resource = new DataPackageResource();
-                resource.Path = GetFileName;
-                resource.Hash = GetHash;
-                resource.Bytes = GetFileSizeInBytes;
-                List<CsvColumn> CsvColumns = GetCsvColumns;
-                resource.Schema = new DataPackageResourceSchema();
-                List<DataPackageResourceSchemaField> fields = new List<DataPackageResourceSchemaField>();
-                foreach (CsvColumn column in CsvColumns)
-                {
-                    logger.Log(LogLevel.Trace, "Csv.GetFileResource - " + column.Name);
-                    DataPackageResourceSchemaField field = new DataPackageResourceSchemaField();
-                    field.Name = column.Name;
-                    field.Type = column.Type;
-                    fields.Add(field);
-                }
-                resource.Schema.Fields = fields;
-                return resource;
-            }
-        }
-
-        /// <summary>
-        /// Cleans the name (title) of the column as it could be encased in "
+        ///     Cleans the name (title) of the column as it could be encased in "
         /// </summary>
         /// <param name="unclean"></param>
         /// <returns></returns>
